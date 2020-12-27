@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "FadeScreen.h"
 #include "Player.h"
+#include "Physics.h"
 #include "Collisions.h"
 
 
@@ -29,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	fadeScreen = new FadeScreen();
 	player = new Player();
+	physics = new Physics();
 	collisions = new Collisions();
 
 
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 
 	AddModule(fadeScreen);
+	AddModule(physics);
 	AddModule(player);
 	AddModule(collisions);
 

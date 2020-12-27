@@ -55,10 +55,9 @@ private:
 	Animation rightIdle;
 
 
-	Physics playerPhysics;
 	Collider* playerCollider = nullptr;
 
-	//void OnCollision(Collider* c1, Collider* c2);
+	//	void OnCollision(Collider* c1, Collider* c2);
 
 };
 
