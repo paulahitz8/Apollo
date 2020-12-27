@@ -30,8 +30,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
+	iPoint ScreenToWorld(int x, int y) const;
 
 	// Drawing
 	bool DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX) const;
@@ -48,6 +53,8 @@ public:
 	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
+
+	char* vsync;
 };
 
 #endif // __RENDER_H__

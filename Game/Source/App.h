@@ -2,9 +2,15 @@
 #define __APP_H__
 
 #include "Module.h"
+#include "PerfTimer.h"
+#include "Timer.h"
+
 #include "List.h"
 
 #include "PugiXml/src/pugixml.hpp"
+
+#define CONFIG_FILENAME		"config.xml"
+#define SAVE_STATE_FILENAME "savegame.xml"
 
 // Modules
 class Window;
@@ -13,6 +19,9 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class FadeScreen;
+class Player;
+class Collisions;
 
 class App
 {
@@ -45,25 +54,26 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
+	void LoadGameRequest();
+	void SaveGameRequest();
+
 private:
 
 	// Load config file
-	bool LoadConfig();
+	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
-	// Call modules before each loop iteration
 	void PrepareUpdate();
 
-	// Call modules before each loop iteration
 	void FinishUpdate();
 
-	// Call modules before each loop iteration
 	bool PreUpdate();
 
-	// Call modules on each loop iteration
 	bool DoUpdate();
 
-	// Call modules after each loop iteration
 	bool PostUpdate();
+
+	bool LoadGame();
+	bool SaveGame();
 
 public:
 
@@ -74,6 +84,9 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	FadeScreen* fadeScreen;
+	Player* player;
+	Collisions* collisions;
 
 private:
 
@@ -82,17 +95,23 @@ private:
 	SString title;
 	SString organization;
 
-	List<Module *> modules;
+	List<Module*> modules;
 
-	// TODO 2: Create new variables from pugui namespace:
-	// a xml_document to store the config file and
-	// two xml_node to read specific branches of the xml
-	pugi::xml_document configFile;
-	pugi::xml_node config;
-	pugi::xml_node configApp;
+	bool saveRequest, loadRequest;
+	SString saveFile;
 
-	uint frames;
-	float dt;
+	PerfTimer pTimer;
+	uint64 frameCount = 0;
+	const uint32 fps = 60;
+	const uint32 frameDelay = 1000 / fps;
+	Timer startupTime;
+	Timer frameTime;
+	Timer lastSecFrameTime;
+	uint32 lastSecFrameCount = 0;
+	uint32 prevLastSecFrameCount = 0;
+	float dt = 0.0f;
+	bool changeFps = false;
+	int frames;
 };
 
 extern App* app;

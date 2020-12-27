@@ -6,6 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+struct Collider;
 
 class Module
 {
@@ -20,7 +21,6 @@ public:
 	}
 
 	// Called before render is available
-	// L01: DONE 5: Sending config file to all modules
 	virtual bool Awake(pugi::xml_node&)
 	{
 		return true;
@@ -55,6 +55,37 @@ public:
 	{
 		return true;
 	}
+
+	virtual bool LoadState(pugi::xml_node&)
+	{
+		return true;
+	}
+
+	virtual bool SaveState(pugi::xml_node&)
+	{
+		return true;
+	}
+
+	void Module::Enable()
+	{
+		if (!active)
+		{
+			active = true;
+			Start();
+		}
+	}
+
+	void Module::Disable()
+	{
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+
+	}
+
+	virtual void OnCollision(Collider* c1, Collider* c2) {};
 
 public:
 

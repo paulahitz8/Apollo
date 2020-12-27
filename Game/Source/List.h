@@ -19,6 +19,7 @@ struct ListItem
 
 	~ListItem()
 	{}
+
 };
 
 // Manages a double linked list
@@ -62,7 +63,7 @@ public:
 		ListItem<tdata>* dataItem;
 		dataItem = new ListItem<tdata>(item);
 
-		if(start == NULL)
+		if (start == NULL)
 		{
 			start = end = dataItem;
 		}
@@ -80,17 +81,17 @@ public:
 	// Deletes an item from the list
 	bool Del(ListItem<tdata>* item)
 	{
-		if(item == NULL)
+		if (item == NULL)
 		{
 			return (false);
 		}
 
 		// Now reconstruct the list
-		if(item->prev != NULL)
+		if (item->prev != NULL)
 		{
 			item->prev->next = item->next;
 
-			if(item->next != NULL)
+			if (item->next != NULL)
 			{
 				item->next->prev = item->prev;
 			}
@@ -101,7 +102,7 @@ public:
 		}
 		else
 		{
-			if(item->next)
+			if (item->next)
 			{
 				item->next->prev = NULL;
 				start = item->next;
@@ -124,7 +125,7 @@ public:
 		ListItem<tdata>* pNext;
 		pData = start;
 
-		while(pData != NULL)
+		while (pData != NULL)
 		{
 			pNext = pData->next;
 			RELEASE(pData);
@@ -143,9 +144,9 @@ public:
 		pos = 0;
 		pItem = start;
 
-		while(pItem != NULL)
+		while (pItem != NULL)
 		{
-			if(pos == index)
+			if (pos == index)
 			{
 				break;
 			}
@@ -157,9 +158,7 @@ public:
 		return(pItem->data);
 	}
 
-	/**
-	* const read operator access directly to a position in the list
-	*/
+	// Read operator access directly to a position in the list
 	const tdata& operator [](const unsigned int index) const
 	{
 		long pos;
@@ -167,9 +166,9 @@ public:
 		pos = 0;
 		pItem = start;
 
-		while(pItem != NULL)
+		while (pItem != NULL)
 		{
-			if(pos == index)
+			if (pos == index)
 			{
 				break;
 			}
@@ -183,11 +182,12 @@ public:
 		return(pItem->data);
 	}
 
+	// Read operator access directly to a position in the list
 	const List<tdata>& operator +=(const List<tdata>& other_list)
 	{
 		ListItem<tdata>* pItem = other_list.start;
 
-		while(pItem != NULL)
+		while (pItem != NULL)
 		{
 			Add(pItem->data);
 			pItem = pItem->next;
@@ -196,14 +196,15 @@ public:
 		return(*this);
 	}
 
+	// Access to a node in a position in the list
 	const ListItem<tdata>* At(unsigned int index) const
 	{
 		long pos = 0;
 		ListItem<tdata>* pItem = start;
 
-		while(pItem != NULL)
+		while (pItem != NULL)
 		{
-			if(pos++ == index)
+			if (pos++ == index)
 				break;
 
 			pItem = pItem->next;
@@ -212,14 +213,15 @@ public:
 		return pItem;
 	}
 
+	// Access to a node in a position in the list
 	ListItem<tdata>* At(unsigned int index)
 	{
 		long pos = 0;
 		ListItem<tdata>* pItem = start;
 
-		while(pItem != NULL)
+		while (pItem != NULL)
 		{
-			if(pos++ == index)
+			if (pos++ == index)
 				break;
 
 			pItem = pItem->next;
@@ -234,15 +236,15 @@ public:
 		int ret = 0;
 		bool swapped = true;
 
-		while(swapped)
+		while (swapped)
 		{
 			swapped = false;
 			ListItem<tdata>* tmp = start;
 
-			while(tmp != NULL && tmp->next != NULL)
+			while (tmp != NULL && tmp->next != NULL)
 			{
 				++ret;
-				if(tmp->data > tmp->next->data)
+				if (tmp->data > tmp->next->data)
 				{
 					SWAP(tmp->data, tmp->next->data);
 					swapped = true;
@@ -255,14 +257,15 @@ public:
 		return ret;
 	}
 
+	// Returns the first apperance of data as index (-1 if not found)
 	int Find(const tdata& data)
 	{
 		ListItem<tdata>* tmp = start;
 		int index = 0;
 
-		while(tmp != NULL)
+		while (tmp != NULL)
 		{
-			if(tmp->data == data)
+			if (tmp->data == data)
 				return(index);
 
 			++index;
@@ -276,20 +279,20 @@ public:
 		ListItem<tdata>* pMyList = At(position);
 		ListItem<tdata>* pOtherList = list.start;
 
-		while(pOtherList != NULL)
+		while (pOtherList != NULL)
 		{
 			ListItem<tdata>* pNewItem = new ListItem<tdata>(pOtherList->data);
 
 			pNewItem->next = (pMyList) ? pMyList->next : NULL;
 
-			if(pNewItem->next != NULL)
+			if (pNewItem->next != NULL)
 				pNewItem->next->prev = pNewItem;
 			else
 				end = pNewItem;
 
 			pNewItem->prev = pMyList;
 
-			if(pNewItem->prev != NULL)
+			if (pNewItem->prev != NULL)
 				pNewItem->prev->next = pNewItem;
 			else
 				start = pNewItem;
