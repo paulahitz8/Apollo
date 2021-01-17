@@ -64,17 +64,14 @@ bool Scene::Update(float dt)
 		boolPath = !boolPath;
 	}*/
 
-	// Camera: follow the player
-	//if (app->player->playerPos.x >= 500 && app->player->playerPos.x < 8820) app->render->camera.x = -(app->player->playerPos.x - 500);
+	 //Camera: follow the player
+	if (app->player->playerPos.x >= 500 && app->player->playerPos.x < 9320) app->render->camera.x = -(app->player->playerPos.x - 500);
 
 	// Camera limits
 	//if (app->render->camera.x > 0) app->render->camera.x--;
 
 	// Draw background
-	uint w, h;
-	app->win->GetWindowSize(w, h);
-	uint wmb, hmb;
-	app->tex->GetSize(background, wmb, hmb);
+	app->render->DrawTexture(background, 0, 0);
 
 	//for (int i = 0; (wmb * i) <= (w - app->render->camera.x); i++) app->render->DrawTexture(background, wmb * i, app->map->data.tileHeight * 2, false, 0.4f);
 

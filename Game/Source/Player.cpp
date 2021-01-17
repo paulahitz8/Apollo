@@ -28,13 +28,14 @@ bool Player::Start()
 {
 	LOG("Loading player textures");
 
-	//playerTexture = app->tex->Load("Assets/Characters/penguin_sprites.png");
-	currentAnimation = &rightIdle;
+	playerTexture = app->tex->Load("Assets/Textures/ApolloPlayer.png");
+	//currentAnimation = &rightIdle;
 
-	playerPos = { 0, 0 };
+	playerPos = { 100, 350 };
+	playerRect = { 158,64,153,68 };
 
 	//Collider
-	playerCollider = app->collisions->AddCollider({ playerPos.x, playerPos.y, 22, 25 }, Collider::Type::PLAYER, this);
+	//playerCollider = app->collisions->AddCollider({ playerPos.x, playerPos.y, 22, 25 }, Collider::Type::PLAYER, this);
 
 	return true;
 }
@@ -49,11 +50,16 @@ bool Player::Update(float dt)
 {
 	//bla bla bla
 
-	currentAnimation->Update(dt);
+	//currentAnimation->Update(dt);
 
 	//Drawing the player
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	//app->render->DrawTexture(playerTexture, playerPos.x, playerPos.y, &rect);
+	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(playerTexture, playerPos.x, playerPos.y, &playerRect);
+
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		playerPos.x +=20;
+	}
 
 
 	return true;
@@ -64,11 +70,12 @@ bool Player::PostUpdate()
 {
 	// Map Limits
 	if (playerPos.x <= 0) playerPos.x = 0;
+	if (playerPos.x > 9870) playerPos.x = 9870;
 
 	//if ((playerPos.x + playerRect.x) > (app->map->data.width * app->map->data.tileWidth)) --playerPos.x;
 
 	//In case of godmode on
-	if (playerPos.y <= 0) playerPos.y = 0;
+	//if (playerPos.y <= 0) playerPos.y = 0;
 
 	//if ((playerPos.y + playerRect.y) > (app->map->data.height * app->map->data.tileHeight)) --playerPos.y;
 
