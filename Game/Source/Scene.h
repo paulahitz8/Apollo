@@ -34,6 +34,47 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Home planet
+	Planet* planetHome;
+	fPoint homePos;
+	Collider* homeCol;
+
+	// HomeMoon planet
+	Planet* moon;
+	fPoint moonPos;
+	Collider* moonCol;
+
+	// Blue planet
+	Planet* blue;
+	fPoint bluePos;
+	Collider* blueCol;
+
+	// GasBoy planet
+	Planet* gasBoy;
+	fPoint gasBoyPos;
+	Collider* gasBoyCol;
+
+	// Giant planet
+	Planet* giant;
+	fPoint giantPos;
+	Collider* giantCol;
+
+	// AquaBoy planet
+	Planet* aquaBoy;
+	fPoint aquaBoyPos;
+	Collider* aquaBoyCol;
+
+	// newMoon planet
+	Planet* newMoon;
+	fPoint newMoonPos;
+	Collider* newMoonCol;
+
+	// newHome planet
+	Planet* newHome;
+	fPoint newHomePos;
+	Collider* newHomeCol;
+
+
 private:
 
 	SDL_Texture* background;

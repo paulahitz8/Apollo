@@ -58,7 +58,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		playerPos.x +=20;
+		playerPos.x += 5;
 	}
 
 

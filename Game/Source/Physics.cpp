@@ -61,8 +61,7 @@ bool Physics::CleanUp()
 
 void Physics::Step(float dt)
 {
-
-
+	
 }
 
 void Physics::Integrate(Spaceship* body, float dt)
@@ -74,7 +73,7 @@ void Physics::Integrate(Spaceship* body, float dt)
 	body->velocity.y += body->acceleration.y * dt;
 }
 
-fPoint ForceGravity(float shipMass, float planetMass, iPoint shipPos, iPoint planetPos)
+fPoint PhysicsEngine::ForceGravity(float shipMass, float planetMass, iPoint shipPos, iPoint planetPos)
 {
 	float G = 6.674 * (10 ^ -11);
 
@@ -89,7 +88,7 @@ fPoint ForceGravity(float shipMass, float planetMass, iPoint shipPos, iPoint pla
 	return gravityForce;
 }
 
-fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient)
+fPoint PhysicsEngine::ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient)
 {
 	fPoint aeroDragForce;
 
@@ -99,7 +98,7 @@ fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dra
 	return aeroDragForce;
 }
 
-fPoint ForceHydroDrag(fPoint shipVel)
+fPoint PhysicsEngine::ForceHydroDrag(fPoint shipVel)
 {
 	float b = 1.0f;
 	fPoint hydroDragForce;
@@ -110,13 +109,27 @@ fPoint ForceHydroDrag(fPoint shipVel)
 	return hydroDragForce;
 }
 
-fPoint ForceHydroBuoy(float density, fPoint gravity, float fluidVolume, float shipMass)
+fPoint PhysicsEngine::ForceHydroBuoy(float density, fPoint gravity, float fluidVolume, float shipMass)
 {
-
 	fPoint buoyancyForce;
 
 	buoyancyForce.x = density * gravity.x * fluidVolume - shipMass * gravity.x;
 	buoyancyForce.y = density * gravity.y * fluidVolume - shipMass * gravity.y;
 
 	return buoyancyForce;
+}
+
+// Constructors
+Planet::Planet(fPoint position, float mass, int id, Collider* collider, fPoint gravity, float fluidRad, float planetRad, float density)
+{
+	this->position = position;
+	this->mass = mass;
+
+	this->id = id;
+	this->collider = collider;
+
+	this->gravity = gravity;
+	this->fluidRad = fluidRad;
+	this->planetRad = planetRad;
+	this->density = density;
 }
