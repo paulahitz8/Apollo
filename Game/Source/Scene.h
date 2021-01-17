@@ -5,6 +5,8 @@
 
 struct SDL_Texture;
 
+class Planet;
+
 class Scene : public Module
 {
 public:
@@ -36,42 +38,42 @@ public:
 
 	// Home planet
 	Planet* planetHome;
-	fPoint homePos;
+	iPoint homePos;
 	Collider* homeCol;
 
 	// HomeMoon planet
 	Planet* moon;
-	fPoint moonPos;
+	iPoint moonPos;
 	Collider* moonCol;
 
 	// Blue planet
 	Planet* blue;
-	fPoint bluePos;
+	iPoint bluePos;
 	Collider* blueCol;
 
 	// GasBoy planet
 	Planet* gasBoy;
-	fPoint gasBoyPos;
+	iPoint gasBoyPos;
 	Collider* gasBoyCol;
 
 	// Giant planet
 	Planet* giant;
-	fPoint giantPos;
+	iPoint giantPos;
 	Collider* giantCol;
 
 	// AquaBoy planet
 	Planet* aquaBoy;
-	fPoint aquaBoyPos;
+	iPoint aquaBoyPos;
 	Collider* aquaBoyCol;
 
 	// newMoon planet
 	Planet* newMoon;
-	fPoint newMoonPos;
+	iPoint newMoonPos;
 	Collider* newMoonCol;
 
 	// newHome planet
 	Planet* newHome;
-	fPoint newHomePos;
+	iPoint newHomePos;
 	Collider* newHomeCol;
 
 

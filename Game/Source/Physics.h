@@ -40,10 +40,10 @@ public:
 class Planet
 {
 public:
-	Planet(fPoint position, float mass, int id, Collider* collider, fPoint gravity, float fluidRad, float planetRad, float density);
+	Planet(iPoint position, float mass, int id, Collider* collider, fPoint gravity, float fluidRad, float planetRad, float density);
 	~Planet();
 
-	fPoint position;
+	iPoint position;
 	float mass;
 
 	int id;
