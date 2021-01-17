@@ -41,7 +41,7 @@ bool Scene::Start()
 
 	RELEASE_ARRAY(data);
 
-	background = app->tex->Load("Assets/Screens/background.png");
+	background = app->tex->Load("Assets/Textures/Apollo.png");
 
 	return true;
 }
