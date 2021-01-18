@@ -39,11 +39,11 @@ bool Physics::PreUpdate()
 
 bool Physics::Update(float dt)
 {
-	/*if (timer < 500)
+	if (timer < 500)
 	{
 		timer++;
 		return true;
-	}*/
+	}
 
 	Step(dt);
 

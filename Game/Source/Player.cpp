@@ -63,11 +63,11 @@ bool Player::Update(float dt)
 	//Drawing the player
 	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	/*if (timer < 500)
+	if (timer < 500)
 	{
 		timer++;
 		return true;
-	}*/
+	}
 
 	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &playerRect, 1.0f, ovni->rotation);
 
