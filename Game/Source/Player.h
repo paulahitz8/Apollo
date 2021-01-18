@@ -49,6 +49,10 @@ public:
     fPoint playerPos;
 	fPoint playerAcceleration;
 	int playerFuel;
+    float playerRotation;
+    float propForce;
+    float pi;
+    float turnAngle;
     bool godMode = false;
     bool isDead = false;
 

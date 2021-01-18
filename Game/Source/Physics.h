@@ -16,6 +16,7 @@ public:
 
 	fPoint position;
 	float mass;
+	float rotation;
 
 	SString name;
 	//BodyType bodyType;
@@ -31,15 +32,15 @@ public:
 
 public:
 
-	Spaceship(fPoint position, float mass, CircleCollider* collider,  fPoint acceleration, float frontalArea, int fuel);
+	Spaceship(fPoint position, float mass, CircleCollider* collider,  fPoint acceleration, float frontalArea, int fuel, float rotation);
 	//~Spaceship();
 
 	//void Shoot();
 	fPoint ForceGravity(float shipMass, float planetMass, fPoint shipPos, fPoint planetPos);
 	fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient);
 	fPoint ForceHydroDrag(fPoint shipVel);
-	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect);
-	void ApplyForce(Spaceship body, fPoint force);
+	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect, fPoint shipPos, fPoint planetPos);
+	void ApplyForce(fPoint force);
 	void Rotate(Spaceship body, float angle);
 	void OnCollision(CircleCollider* c1, CircleCollider* c2);
 	void SolveCollision();
