@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Collisions.h"
 #include "Physics.h"
+#include "TitleScreen.h"
 
 #include "Defs.h"
 #include "Log.h"

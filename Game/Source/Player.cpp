@@ -59,7 +59,7 @@ bool Player::Update(float dt)
 	//Drawing the player
 	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	if (timer < 1000)
+	if (timer < 500)
 	{
 		timer++;
 		return true;

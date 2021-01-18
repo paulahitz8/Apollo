@@ -56,14 +56,7 @@ bool TitleScreen::Update(float dt)
 	rect = { 0, 0, 1200, 700 };
 	app->render->DrawTexture(titleScreen, 0, 0, &rect);
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-	{
-		//app->physics->active = true;
-		//app->player->active = true;
-		//app->scene->active = true;
-		app->fadeScreen->active = true;
-		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 50.0f);
-	}
+	timer++;
 
 	return true;
 }
@@ -74,6 +67,12 @@ bool TitleScreen::PostUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) ret = false;
+
+	if (timer == 250)
+	{
+		app->fadeScreen->active = true;
+		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 50.0f);
+	}
 
 	return ret;
 }
