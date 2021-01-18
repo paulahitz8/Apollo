@@ -37,44 +37,46 @@ public:
     // Called before quitting
     bool CleanUp();
 
+	List<Planet*> planetList;
+
     // Home planet
     Planet* planetHome;
-    iPoint homePos;
+    fPoint homePos;
     CircleCollider* homeCol;
 
     // HomeMoon planet
     Planet* moon;
-    iPoint moonPos;
+    fPoint moonPos;
     CircleCollider* moonCol;
 
     // Blue planet
     Planet* blue;
-    iPoint bluePos;
+    fPoint bluePos;
     CircleCollider* blueCol;
 
     // GasBoy planet
     Planet* gasBoy;
-    iPoint gasBoyPos;
+    fPoint gasBoyPos;
     CircleCollider* gasBoyCol;
 
     // Giant planet
     Planet* giant;
-    iPoint giantPos;
+    fPoint giantPos;
     CircleCollider* giantCol;
 
     // AquaBoy planet
     Planet* aquaBoy;
-    iPoint aquaBoyPos;
+    fPoint aquaBoyPos;
     CircleCollider* aquaBoyCol;
 
     // newMoon planet
     Planet* newMoon;
-    iPoint newMoonPos;
+    fPoint newMoonPos;
     CircleCollider* newMoonCol;
 
     // newHome planet
     Planet* newHome;
-    iPoint newHomePos;
+    fPoint newHomePos;
     CircleCollider* newHomeCol;
 
 

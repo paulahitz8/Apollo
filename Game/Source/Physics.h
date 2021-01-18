@@ -8,7 +8,7 @@
 #include "SString.h"
 
 struct SDL_Texture;
-
+class SDL_Rect;
 
 class Spaceship
 {
@@ -20,30 +20,40 @@ public:
 	SString name;
 	//BodyType bodyType;
 	CircleCollider* collider;
-	SDL_Texture* texture;
 
 	fPoint velocity, acceleration;
 	List<fPoint> forces;
 	fPoint totalForce;
 
-	float health;
-	float fuel;
-	int ammo;
 	float frontalArea;
+	float fuel;
 
 
 public:
 
-	void Shoot();
+	Spaceship(fPoint position, float mass, CircleCollider* collider,  fPoint acceleration, float frontalArea, int fuel);
+	//~Spaceship();
+
+	//void Shoot();
+	fPoint ForceGravity(float shipMass, float planetMass, fPoint shipPos, fPoint planetPos);
+	fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient);
+	fPoint ForceHydroDrag(fPoint shipVel);
+	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect);
+	void ApplyForce(Spaceship body, fPoint force);
+	void Rotate(Spaceship body, float angle);
+	void OnCollision(CircleCollider* c1, CircleCollider* c2);
+	void SolveCollision();
+	void NewtonLaw(fPoint totalForce, float mass);
+	// void NewtonThirdLaw(); si añadimos otros dynamic bodies
 };
 
 class Planet
 {
 public:
-	Planet(iPoint position, float mass, int id, CircleCollider* collider, fPoint gravity, float fluidRad, int planetRad, float density);
+	Planet(fPoint position, float mass, int id, CircleCollider* collider, fPoint gravity, int fluidRad, int planetRad, int orbitRad, float density, float dragCoefficient);
 	~Planet();
 
-	iPoint position;
+	fPoint position;
 	float mass;
 
 	int id;
@@ -52,35 +62,13 @@ public:
 	SDL_Texture* texture;
 
 	fPoint gravity;
-	float fluidRad;
-	float orbitRad;
+	int fluidRad;
+	int orbitRad;
 	int planetRad;
 	float density;
-};
+	float dragCoefficient;
 
-
-class PhysicsEngine
-{
-public:
-	PhysicsEngine();
-	~PhysicsEngine();
-
-public:
-	Spaceship apollo;
-	Planet saturn;
-	Planet mercury;
-
-public:
-	fPoint ForceGravity(float shipMass, float planetMass, iPoint shipPos, iPoint planetPos);
-	fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient);
-	fPoint ForceHydroDrag(fPoint shipVel);
-	fPoint ForceHydroBuoy(float density, fPoint gravity, float fluidVolume, float shipMass);
-	void ApplyForce(Spaceship body, fPoint force);
-	void Rotate(Spaceship body, float angle);
-	void OnCollision(CircleCollider* c1, CircleCollider* c2);
-	void SolveCollision();
-	void NewtonLaw(); // f = ma
-	// void NewtonThirdLaw(); si añadimos otros dynamic bodies
+	float FluidVol(int planetRad, iPoint position, iPoint playerPos);
 };
 
 class Physics : public Module
@@ -97,8 +85,6 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-
-	List<Planet*> planetList;
 
 public:
 

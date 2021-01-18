@@ -39,12 +39,16 @@ public:
     bool LoadState(pugi::xml_node&);
     bool SaveState(pugi::xml_node&);
 
+	Spaceship* ovni;
+
     //SDL_Rect player;
     SDL_Texture* playerTexture;
 
     SDL_Rect playerRect;
 
-    iPoint    playerPos;
+    fPoint playerPos;
+	fPoint playerAcceleration;
+	int playerFuel;
     bool godMode = false;
     bool isDead = false;
 
