@@ -19,7 +19,7 @@ public:
 
 	SString name;
 	//BodyType bodyType;
-	Collider* collider;
+	CircleCollider* collider;
 	SDL_Texture* texture;
 
 	fPoint velocity, acceleration;
@@ -27,7 +27,7 @@ public:
 	fPoint totalForce;
 
 	float health;
-	float fuel; 
+	float fuel;
 	int ammo;
 	float frontalArea;
 
@@ -40,7 +40,7 @@ public:
 class Planet
 {
 public:
-	Planet(iPoint position, float mass, int id, Collider* collider, fPoint gravity, float fluidRad, float planetRad, float density);
+	Planet(iPoint position, float mass, int id, CircleCollider* collider, fPoint gravity, float fluidRad, int planetRad, float density);
 	~Planet();
 
 	iPoint position;
@@ -48,13 +48,13 @@ public:
 
 	int id;
 	//BodyType bodyType;
-	Collider* collider;
+	CircleCollider* collider;
 	SDL_Texture* texture;
 
 	fPoint gravity;
 	float fluidRad;
 	float orbitRad;
-	float planetRad;
+	int planetRad;
 	float density;
 };
 
@@ -77,7 +77,7 @@ public:
 	fPoint ForceHydroBuoy(float density, fPoint gravity, float fluidVolume, float shipMass);
 	void ApplyForce(Spaceship body, fPoint force);
 	void Rotate(Spaceship body, float angle);
-	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(CircleCollider* c1, CircleCollider* c2);
 	void SolveCollision();
 	void NewtonLaw(); // f = ma
 	// void NewtonThirdLaw(); si añadimos otros dynamic bodies

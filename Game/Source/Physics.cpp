@@ -61,7 +61,7 @@ bool Physics::CleanUp()
 
 void Physics::Step(float dt)
 {
-	
+
 }
 
 void Physics::Integrate(Spaceship* body, float dt)
@@ -120,7 +120,7 @@ fPoint PhysicsEngine::ForceHydroBuoy(float density, fPoint gravity, float fluidV
 }
 
 // Constructors
-Planet::Planet(iPoint position, float mass, int id, Collider* collider, fPoint gravity, float fluidRad, float planetRad, float density)
+Planet::Planet(iPoint position, float mass, int id, CircleCollider* collider, fPoint gravity, float fluidRad, int planetRad, float density)
 {
 	this->position = position;
 	this->mass = mass;
