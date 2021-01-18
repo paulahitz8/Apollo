@@ -32,7 +32,7 @@ bool Player::Start()
 	//currentAnimation = &rightIdle;
 
 	playerPos = { 100, 350 };
-	playerRect = { 158,64,153,68 };
+	playerRect = { 156,79,113,68 };
 
 	//Collider
 	//playerCollider = app->collisions->AddCollider({ playerPos.x, playerPos.y, 22, 25 }, Collider::Type::PLAYER, this);
@@ -70,7 +70,7 @@ bool Player::PostUpdate()
 {
 	// Map Limits
 	if (playerPos.x <= 0) playerPos.x = 0;
-	if (playerPos.x > 9870) playerPos.x = 9870;
+	if (playerPos.x > 9860) playerPos.x = 9860;
 
 	//if ((playerPos.x + playerRect.x) > (app->map->data.width * app->map->data.tileWidth)) --playerPos.x;
 
