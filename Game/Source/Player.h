@@ -1,5 +1,5 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "Module.h"
 #include "Animation.h"
@@ -15,50 +15,54 @@ class Player : public Module
 {
 public:
 
-	Player();
+    Player();
 
-	void Init();
+    void Init();
 
-	// Destructor
-	virtual ~Player();
+    // Destructor
+    virtual ~Player();
 
-	// Called before player is available
-	bool Awake(pugi::xml_node& conf);
+    // Called before player is available
+    bool Awake(pugi::xml_node& conf);
 
-	// Called before the first frame
-	bool Start();
+    // Called before the first frame
+    bool Start();
 
-	// Called each loop iteration
-	bool PreUpdate();
-	bool Update(float dt);
-	bool PostUpdate();
+    // Called each loop iteration
+    bool PreUpdate();
+    bool Update(float dt);
+    bool PostUpdate();
 
-	// Called before quitting
-	bool CleanUp();
+    // Called before quitting
+    bool CleanUp();
 
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&);
+    bool LoadState(pugi::xml_node&);
+    bool SaveState(pugi::xml_node&);
 
-	//SDL_Rect player;
-	SDL_Texture* playerTexture;
+	Spaceship* ovni;
 
-	SDL_Rect playerRect;
+    //SDL_Rect player;
+    SDL_Texture* playerTexture;
 
-	iPoint	playerPos;
-	bool godMode = false;
-	bool isDead = false;
+    SDL_Rect playerRect;
+
+    fPoint playerPos;
+	fPoint playerAcceleration;
+	int playerFuel;
+    bool godMode = false;
+    bool isDead = false;
 
 
 private:
 
-	Animation* currentAnimation = &rightIdle;
-	Animation rightIdle;
+    Animation* currentAnimation = &rightIdle;
+    Animation rightIdle;
 
 
-	Collider* playerCollider = nullptr;
+    CircleCollider* playerCollider = nullptr;
 
-	//	void OnCollision(Collider* c1, Collider* c2);
+    //    void OnCollision(Collider* c1, Collider* c2);
 
 };
 
-#endif // __PLAYER_H__
+#endif // PLAYER_H
