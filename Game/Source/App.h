@@ -23,6 +23,8 @@ class FadeScreen;
 class Player;
 class Collisions;
 class Physics;
+class LogoScreen;
+class TitleScreen;
 
 class App
 {
@@ -89,6 +91,8 @@ public:
 	Player* player;
 	Collisions* collisions;
 	Physics* physics;
+	LogoScreen* logoScreen;
+	TitleScreen* titleScreen;
 
 private:
 

@@ -91,6 +91,8 @@ public:
 	void Step(float dt);
 	void Integrate(Spaceship* value, float dt);
 
+	int timer = 0;
+
 };
 
 #endif

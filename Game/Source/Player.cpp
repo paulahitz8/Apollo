@@ -28,6 +28,8 @@ bool Player::Start()
 {
 	LOG("Loading player textures");
 
+	int timer = 0;
+
 	playerTexture = app->tex->Load("Assets/Textures/ApolloPlayer.png");
 	//currentAnimation = &rightIdle;
 	playerPos = { 100.0f, 350.0f };
@@ -56,6 +58,14 @@ bool Player::Update(float dt)
 
 	//Drawing the player
 	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
+
+	if (timer < 1000)
+	{
+		timer++;
+		return true;
+	}
+
+
 	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &playerRect);
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -71,8 +81,8 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	// Map Limits
-	if (ovni->position.x <= 0) ovni->position.x = 0;
-	if (ovni->position.x > 9870) ovni->position.x = 9870;
+	//if (ovni->position.x <= 0) ovni->position.x = 0;
+	//if (ovni->position.x > 9870) ovni->position.x = 9870;
 
 	//if ((playerPos.x + playerRect.x) > (app->map->data.width * app->map->data.tileWidth)) --playerPos.x;
 

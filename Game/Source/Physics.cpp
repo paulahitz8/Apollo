@@ -26,7 +26,7 @@ bool Physics::Awake(pugi::xml_node&)
 
 bool Physics::Start()
 {
-
+	timer = 0;
 
 	return true;
 }
@@ -39,6 +39,12 @@ bool Physics::PreUpdate()
 
 bool Physics::Update(float dt)
 {
+
+	if (timer < 1000)
+	{
+		timer++;
+		return true;
+	}
 
 	Step(dt);
 

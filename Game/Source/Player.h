@@ -40,7 +40,7 @@ public:
     bool SaveState(pugi::xml_node&);
 
 	Spaceship* ovni;
-
+    int timer = 0;
     //SDL_Rect player;
     SDL_Texture* playerTexture;
 

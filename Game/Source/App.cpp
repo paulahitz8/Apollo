@@ -9,7 +9,8 @@
 #include "Player.h"
 #include "Physics.h"
 #include "Collisions.h"
-
+#include "LogoScreen.h"
+#include "TitleScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,6 +30,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	scene = new Scene();
 	fadeScreen = new FadeScreen();
+	logoScreen = new LogoScreen();
+	titleScreen = new TitleScreen();
 	player = new Player();
 	physics = new Physics();
 	collisions = new Collisions();
@@ -41,10 +44,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
+	//AddModule(logoScreen);
+	//AddModule(titleScreen);
 	AddModule(scene);
-	AddModule(fadeScreen);
 	AddModule(player);
+	AddModule(fadeScreen);
 	AddModule(collisions);
+	//AddModule(deathScreen);
+	//AddModule(winScreen);
 
 	// Render last to swap buffer
 	AddModule(render);
