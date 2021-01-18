@@ -39,12 +39,6 @@ bool LogoScreen::Start()
 
 	app->titleScreen->active = false;
 
-	app->scene->active = false;
-	app->player->active = false;
-	app->physics->active = false;
-	
-	
-
 	logoScreen = app->tex->Load("Assets/Textures/logo_screen.png");
 
 	app->audio->PlayMusic("Assets/Audio/Music/logo_music.ogg");

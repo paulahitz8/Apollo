@@ -40,7 +40,7 @@ bool Physics::PreUpdate()
 bool Physics::Update(float dt)
 {
 
-	if (timer < 1000)
+	if (timer < 500)
 	{
 		timer++;
 		return true;
