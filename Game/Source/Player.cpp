@@ -31,6 +31,8 @@ bool Player::Start()
 	int timer = 0;
 
 	playerTexture = app->tex->Load("Assets/Textures/ApolloPlayer.png");
+	life = app->tex->Load("Assets/Textures/Life.png");
+	lifeGrey = app->tex->Load("Assets/Textures/LifeGrey.png");
 	//currentAnimation = &rightIdle;
 	playerPos = { 100.0f, 350.0f };
 	playerAcceleration = { 0.0f, 0.0f };
@@ -63,11 +65,11 @@ bool Player::Update(float dt)
 	//Drawing the player
 	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	if (timer < 500)
-	{
-		timer++;
-		return true;
-	}
+	//if (timer < 500)
+	//{
+	//	timer++;
+	//	return true;
+	//}
 
 	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &playerRect, 1.0f, ovni->rotation);
 

@@ -83,7 +83,18 @@ public:
 private:
 
     SDL_Texture* background;
-    SDL_Texture* debugPath;
+    SDL_Texture* gui;
+	SDL_Rect guiRect;
+    SDL_Texture* emptyF;
+	SDL_Rect emptyFRect;
+    SDL_Texture* F25;
+	SDL_Rect F25Rect;
+    SDL_Texture* F50;
+	SDL_Rect F50Rect;
+    SDL_Texture* F75;
+	SDL_Rect F75Rect;
+    SDL_Texture* F100;
+	SDL_Rect F100Rect;
 
     bool boolPath = false;
 };

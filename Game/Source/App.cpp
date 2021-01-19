@@ -48,8 +48,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(fadeScreen);
 	AddModule(collisions);
-	AddModule(logoScreen);
-	AddModule(titleScreen);
+	//AddModule(logoScreen);
+	//AddModule(titleScreen);
 	//AddModule(deathScreen);
 	//AddModule(winScreen);
 

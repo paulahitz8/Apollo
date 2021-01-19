@@ -43,8 +43,10 @@ public:
     int timer = 0;
     //SDL_Rect player;
     SDL_Texture* playerTexture;
-
     SDL_Rect playerRect;
+
+	SDL_Texture* life;
+	SDL_Texture* lifeGrey;
 
     fPoint playerPos;
 	fPoint playerAcceleration;
