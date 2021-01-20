@@ -25,6 +25,8 @@ class Collisions;
 class Physics;
 class LogoScreen;
 class TitleScreen;
+class Fuel;
+class Hearts;
 
 class App
 {
@@ -93,6 +95,8 @@ public:
 	Physics* physics;
 	LogoScreen* logoScreen;
 	TitleScreen* titleScreen;
+	Fuel* fuel;
+	Hearts* hearts;
 
 private:
 

@@ -23,6 +23,8 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\LogoScreen.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
+    <ClCompile Include="Source\Fuel.cpp" />
+    <ClCompile Include="Source\Hearts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -69,6 +71,8 @@
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\LogoScreen.h" />
     <ClInclude Include="Source\TitleScreen.h" />
+    <ClInclude Include="Source\Fuel.h" />
+    <ClInclude Include="Source\Hearts.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

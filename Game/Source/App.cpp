@@ -11,6 +11,8 @@
 #include "Collisions.h"
 #include "LogoScreen.h"
 #include "TitleScreen.h"
+#include "Hearts.h"
+#include "Fuel.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -35,6 +37,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	player = new Player();
 	physics = new Physics();
 	collisions = new Collisions();
+	fuel = new Fuel();
+	hearts = new Hearts();
 
 
 	// Ordered for awake / Start / Update
@@ -46,6 +50,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(fuel);
+	AddModule(hearts);
 	AddModule(fadeScreen);
 	AddModule(collisions);
 	//AddModule(logoScreen);
@@ -228,8 +234,8 @@ void App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s",
-		frames, averageFps, lastFrameMs, app->render->vsync);
+	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s   Fuel: %d",
+		frames, averageFps, lastFrameMs, app->render->vsync, app->fuel->fuel);
 	app->win->SetTitle(title);
 }
 

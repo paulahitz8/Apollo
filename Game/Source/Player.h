@@ -45,9 +45,6 @@ public:
     SDL_Texture* playerTexture;
     SDL_Rect playerRect;
 
-	SDL_Texture* life;
-	SDL_Texture* lifeGrey;
-
     fPoint playerPos;
 	fPoint playerAcceleration;
 	int playerFuel;
@@ -57,13 +54,18 @@ public:
     float turnAngle;
     bool godMode = false;
     bool isDead = false;
+    int lives;
 
 
 private:
 
-    Animation* currentAnimation = &rightIdle;
-    Animation rightIdle;
-
+    Animation* currentAnimation = &idle;
+    Animation idle;
+    Animation scanPlanet;
+    Animation scanNo;
+    Animation scanYes;
+    Animation impulse;
+    Animation getFuel;
 
     CircleCollider* playerCollider = nullptr;
 

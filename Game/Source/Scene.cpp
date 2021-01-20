@@ -96,11 +96,6 @@ bool Scene::Start()
 
 	background = app->tex->Load("Assets/Textures/Apollo.png");
 	gui = app->tex->Load("Assets/Textures/Interface.png");
-	emptyF = app->tex->Load("Assets/Textures/EmptyFuel.png");
-	F25 = app->tex->Load("Assets/Textures/25Fuel.png");
-	F50 = app->tex->Load("Assets/Textures/50Fuel.png");
-	F75 = app->tex->Load("Assets/Textures/75Fuel.png");
-	F100 = app->tex->Load("Assets/Textures/100Fuel.png");
 
 	guiRect = { 0, 0, 395, 220 };
 
@@ -133,7 +128,7 @@ bool Scene::Update(float dt)
 
 	// Draw background
 	app->render->DrawTexture(background, 0, 0);
-	app->render->DrawTexture(gui, 0, 0, &guiRect);
+	app->render->DrawTexture(gui, 0 - app->render->camera.x, 0, &guiRect);
 
 	//for (int i = 0; (wmb * i) <= (w - app->render->camera.x); i++) app->render->DrawTexture(background, wmb * i, app->map->data.tileHeight * 2, false, 0.4f);
 

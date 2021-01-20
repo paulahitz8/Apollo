@@ -95,7 +95,7 @@ void Physics::Step(float dt)
 	app->player->ovni->forces.Clear();
 	app->player->ovni->NewtonLaw(app->player->ovni->totalForce, app->player->ovni->mass);
 	app->player->ovni->totalForce = { 0.0f, 0.0f };
-	Integrate(app->player->ovni, dt);
+	//Integrate(app->player->ovni, dt);
 	app->player->ovni->acceleration = { 0.0f, 0.0f };
 }
 

@@ -97,6 +97,8 @@
   <ItemGroup>
     <ClCompile Include="Source\Collisions.cpp" />
     <ClCompile Include="Source\FadeScreen.cpp" />
+    <ClCompile Include="Source\Fuel.cpp" />
+    <ClCompile Include="Source\Hearts.cpp" />
     <ClCompile Include="Source\LogoScreen.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -114,6 +116,8 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Collisions.h" />
     <ClInclude Include="Source\FadeScreen.h" />
+    <ClInclude Include="Source\Fuel.h" />
+    <ClInclude Include="Source\Hearts.h" />
     <ClInclude Include="Source\LogoScreen.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Physics.h" />

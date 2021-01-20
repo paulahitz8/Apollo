@@ -13,6 +13,8 @@
 Player::Player()
 {
 	name.Create("player");
+
+
 }
 
 Player::~Player() {}
@@ -20,6 +22,38 @@ Player::~Player() {}
 bool Player::Awake(pugi::xml_node&)
 {
 	//animations
+
+	// Animation idle;
+	idle.PushBack({ 78, 132, 112, 68 });
+	idle.PushBack({ 231, 131, 112, 68 });
+	idle.PushBack({ 385, 130, 112, 68 });
+	idle.PushBack({ 538, 129, 112, 68 });
+	idle.PushBack({ 682, 128, 112, 68 });
+	idle.PushBack({ 835, 127, 112, 68 });
+	idle.speed = 5.0f;
+
+	// Animation scanPlanet;
+	scanPlanet.PushBack({ 77, 221, 112, 68 });
+	scanPlanet.PushBack({ 231, 217, 112, 68 });
+	scanPlanet.PushBack({ 385, 216, 112, 68 });
+	scanPlanet.PushBack({ 538, 215, 112, 68 });
+	scanPlanet.PushBack({ 682, 215, 112, 68 });
+	scanPlanet.PushBack({ 835, 213, 112, 68 });
+	scanPlanet.speed = 5.0f;
+
+	// Animation scanNo;
+	scanNo.PushBack({ 77, 221, 112, 68 });
+
+	// Animation scanYes;
+	scanYes.PushBack({ 1098, 207, 112, 68 });
+
+	// Animation impulse;
+	impulse.PushBack({ 77, 47, 112, 68 });
+	impulse.PushBack({ 221, 46, 112, 68 });
+	impulse.speed = 10.0f;
+
+	// Animation getFuel;
+	getFuel.PushBack({ 77, 221, 112, 68 });
 
 	return true;
 }
@@ -31,9 +65,11 @@ bool Player::Start()
 	int timer = 0;
 
 	playerTexture = app->tex->Load("Assets/Textures/ApolloPlayer.png");
-	life = app->tex->Load("Assets/Textures/Life.png");
-	lifeGrey = app->tex->Load("Assets/Textures/LifeGrey.png");
-	//currentAnimation = &rightIdle;
+
+	lives = 3;
+
+	currentAnimation = &idle;
+
 	playerPos = { 100.0f, 350.0f };
 	playerAcceleration = { 0.0f, 0.0f };
 	playerFuel = 100;
@@ -58,28 +94,22 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	//bla bla bla
-
-	//currentAnimation->Update(dt);
-
-	//Drawing the player
-	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
-
 	//if (timer < 500)
 	//{
 	//	timer++;
 	//	return true;
 	//}
 
-	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &playerRect, 1.0f, ovni->rotation);
-
+	
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		ovni->rotation += turnAngle;
+		//ovni->rotation += turnAngle;
+		ovni->position.x += 5;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		ovni->rotation += -turnAngle;
+		//ovni->rotation += -turnAngle;
+		ovni->position.x -= 5;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
@@ -155,6 +185,10 @@ bool Player::Update(float dt)
 		ovni->ApplyForce(direction);
 	}
 
+	currentAnimation->Update(dt);
+	
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &rect);
 
 	playerCollider->SetPos(ovni->position.x + 55, ovni->position.y + 33);
 
@@ -169,6 +203,8 @@ bool Player::PostUpdate()
 	if (ovni->position.y <= 0) ovni->position.y = 0;
 	if (ovni->position.x > 9870) ovni->position.x = 9870;
 	if (ovni->position.y > 630) ovni->position.y = 630;
+
+
 
 	//if ((playerPos.x + playerRect.x) > (app->map->data.width * app->map->data.tileWidth)) --playerPos.x;
 
