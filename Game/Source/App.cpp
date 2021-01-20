@@ -13,6 +13,7 @@
 #include "TitleScreen.h"
 #include "Hearts.h"
 #include "Fuel.h"
+#include "Asteroid.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,6 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics();
 	collisions = new Collisions();
 	fuel = new Fuel();
+	asteroid = new Asteroid();
 	hearts = new Hearts();
 
 
@@ -50,6 +52,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(asteroid);
 	AddModule(fuel);
 	AddModule(hearts);
 	AddModule(fadeScreen);

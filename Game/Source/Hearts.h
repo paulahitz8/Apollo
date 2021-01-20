@@ -1,5 +1,5 @@
-#ifndef __LIFE_H__
-#define __LIFE_H__
+#ifndef __HEARTS_H__
+#define __HEARTS_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -48,4 +48,4 @@ private:
 	unsigned int loseHeart;
 };
 
-#endif // __LIFE_H__
+#endif // __HEARTS_H__

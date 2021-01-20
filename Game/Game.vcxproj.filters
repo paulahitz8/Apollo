@@ -25,6 +25,7 @@
     <ClCompile Include="Source\TitleScreen.cpp" />
     <ClCompile Include="Source\Fuel.cpp" />
     <ClCompile Include="Source\Hearts.cpp" />
+    <ClCompile Include="Source\Asteroid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\Fuel.h" />
     <ClInclude Include="Source\Hearts.h" />
+    <ClInclude Include="Source\Asteroid.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -16,6 +16,8 @@ Collisions::Collisions() : Module()
 	}
 
 	matrix[CircleCollider::Type::PLANET][CircleCollider::Type::PLAYER] = true;
+	matrix[CircleCollider::Type::FUEL][CircleCollider::Type::PLAYER] = true;
+	matrix[CircleCollider::Type::PLAYER][CircleCollider::Type::FUEL] = true;
 
 	matrix[CircleCollider::Type::PLAYER][CircleCollider::Type::PLANET] = true;
 
@@ -118,6 +120,9 @@ void Collisions::DrawCollider()
 			app->render->DrawCircle(colliders[i]->x, colliders[i]->y, colliders[i]->radius, 255, 255, 0, alpha);
 			break;
 		case CircleCollider::Type::ASTEROID: // Yellow
+			app->render->DrawCircle(colliders[i]->x, colliders[i]->y, colliders[i]->radius, 255, 255, 255, alpha);
+			break;
+		case CircleCollider::Type::FUEL: // White
 			app->render->DrawCircle(colliders[i]->x, colliders[i]->y, colliders[i]->radius, 255, 255, 255, alpha);
 			break;
 		}

@@ -38,7 +38,7 @@ bool Fuel::Start()
 
 	currentAnimation = &fuelAnim;
 
-	fuelPos = { 700, 500 };
+	fuel1Pos = { 700, 500 };
 	bottlePos = { 25, 15 };
 
 	bottle_0 = { 31, 13, 77, 163 };
@@ -49,6 +49,8 @@ bool Fuel::Start()
 
 	fuel = 100;
 	timer = 0;
+
+	fuel1Collider = app->collisions->AddCollider(fuel1Pos.x, fuel1Pos.y, 26, CircleCollider::Type::FUEL, this);
 
 	return true;
 }
@@ -98,9 +100,12 @@ bool Fuel::Update(float dt)
 
 	currentAnimation->Update(dt);
 
+	fuel1Collider->SetPos(fuel1Pos.x + 52, fuel1Pos.y + 48);
+
+
 	//Drawing the cubes
 	SDL_Rect rect1 = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(fuelTexture, fuelPos.x, fuelPos.y, &rect1);
+	app->render->DrawTexture(fuelTexture, fuel1Pos.x, fuel1Pos.y, &rect1);
 
 	return true;
 }

@@ -27,6 +27,7 @@ class LogoScreen;
 class TitleScreen;
 class Fuel;
 class Hearts;
+class Asteroid;
 
 class App
 {
@@ -97,6 +98,7 @@ public:
 	TitleScreen* titleScreen;
 	Fuel* fuel;
 	Hearts* hearts;
+	Asteroid* asteroid;
 
 private:
 

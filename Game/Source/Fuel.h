@@ -1,5 +1,5 @@
-#ifndef __ITEM_H__
-#define __ITEM_H__
+#ifndef __FUEL_H__
+#define __FUEL_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -43,12 +43,14 @@ public:
 
 	iPoint bottlePos;
 
-	iPoint fuelPos;
+	iPoint fuel1Pos;
 
 private:
 
 	Animation* currentAnimation = &fuelAnim;
 	Animation fuelAnim;
+
+	CircleCollider* fuel1Collider = nullptr;
 };
 
-#endif // __ITEM_H__
+#endif // __FUEL_H__

@@ -15,6 +15,7 @@ struct CircleCollider
         PLAYER,
         PLANET,
         ASTEROID,
+        FUEL,
         MAX
     };
 
