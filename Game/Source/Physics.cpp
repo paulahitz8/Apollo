@@ -67,26 +67,28 @@ bool Physics::CleanUp()
 
 void Physics::Step(float dt)
 {
-	app->player->ovni->velocity = { 10.0f, 10.0f };
-	for (int i = 0; i < app->scene->planetList.Count(); i++)
-	{
-		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
-		{
-			if (app->scene->planetList[i]->id == 6)
-			{
-				app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
-				app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
-			}
-			else
-			{
-				app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
-			}
-		}
-		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
-		{
-			app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
-		}
-	}
+	//app->player->ovni->velocity = { 10.0f, 10.0f };
+	//for (int i = 0; i < app->scene->planetList.Count(); i++)
+	//{
+	//	if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
+	//	{
+	//		if (app->scene->planetList[i]->id == 6)
+	//		{
+	//			app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
+	//			app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
+	//		}
+	//		else
+	//		{
+	//			app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
+	//		}
+	//	}
+	//	if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
+	//	{
+	//		app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
+	//	}
+	//}
+
+
 	for (int i = 0; i < app->player->ovni->forces.Count(); i++)
 	{
 		app->player->ovni->totalForce.x += app->player->ovni->forces[i].x;
@@ -95,7 +97,7 @@ void Physics::Step(float dt)
 	app->player->ovni->forces.Clear();
 	app->player->ovni->NewtonLaw(app->player->ovni->totalForce, app->player->ovni->mass);
 	app->player->ovni->totalForce = { 0.0f, 0.0f };
-	//Integrate(app->player->ovni, dt);
+	Integrate(app->player->ovni, dt);
 	app->player->ovni->acceleration = { 0.0f, 0.0f };
 }
 

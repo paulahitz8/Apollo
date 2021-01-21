@@ -75,7 +75,7 @@ bool Player::Start()
 	playerAcceleration = { 0.0f, 0.0f };
 	playerFuel = 100;
 	playerRotation = 0;
-	propForce = 15.0f;
+	propForce = 30.0f;
 	pi = 3.1416f;
 	turnAngle = 4.0f;
 
@@ -104,98 +104,75 @@ bool Player::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		//ovni->rotation += turnAngle;
-		ovni->position.x += 5;
+		ovni->rotation += turnAngle;
+		if (ovni->rotation > 360)
+		{
+			ovni->rotation = ovni->rotation / 360;
+		}
 	}
+
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		//ovni->rotation += -turnAngle;
-		ovni->position.x -= 5;
+		ovni->rotation -= turnAngle;
+		if (ovni->rotation > 360)
+		{
+			ovni->rotation = ovni->rotation / 360;
+		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+
+	if (ovni->rotation < 0)
 	{
-		//fPoint direction = { 0.0f, 0.0f };
-		//float rads = ovni->rotation * pi / 180;
-
-		//// first quadrant
-		//if (rads >= 0 && rads <= 90)
-		//{
-		//	direction.x = ovni->position.x * cos(rads) * propForce;
-		//	direction.y = ovni->position.y * sin(rads) * propForce;
-		//}
-
-		//// second quadrant
-		//if (rads > 90 && rads <= 180)
-		//{
-		//	direction.x = ovni->position.x * cos(rads) * propForce;
-		//	direction.y = ovni->position.y * -sin(rads) * propForce;
-		//}
-
-		//// third quadrant
-		//if (rads > 180 && rads <= 270)
-		//{
-		//	direction.x = ovni->position.x * -cos(rads) * propForce;
-		//	direction.y = ovni->position.y * -sin(rads) * propForce;
-		//}
-
-		//// fourth quadrant
-		//if (rads > 270 && rads <= 360)
-		//{
-		//	direction.x = ovni->position.x * -cos(rads) * propForce;
-		//	direction.y = ovni->position.y * sin(rads) * propForce;
-		//}
-
-		//direction.x = -direction.x;
-		//direction.y = -direction.y;
-
-		//ovni->ApplyForce(direction);
-
-		ovni->position.y += 5;
+		ovni->rotation = 360 + ovni->rotation;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		//fPoint direction = { 0.0f, 0.0f };
-		//float rads = ovni->rotation * pi / 180;
+		fPoint direction = { 0.0f, 0.0f };
 
-		//// first quadrant
-		//if (rads >= 0 && rads <= 90)
-		//{
-		//	direction.x = ovni->position.x * cos(rads) * propForce;
-		//	direction.y = ovni->position.y * sin(rads) * propForce;
-		//}
+		float rads = ovni->rotation * pi / 180;
 
-		//// second quadrant
-		//if (rads > 90 && rads <= 180)
-		//{
-		//	direction.x = ovni->position.x * cos(rads) * propForce;
-		//	direction.y = ovni->position.y * -sin(rads) * propForce;
-		//}
+		// first quadrant
+		if (rads >= 0 && rads <= 90)
+		{
+			direction.x = ovni->position.x * cos(rads) * propForce;
+			direction.y = ovni->position.y * sin(rads) * propForce;
+		}
 
-		//// third quadrant
-		//if (rads > 180 && rads <= 270)
-		//{
-		//	direction.x = ovni->position.x * -cos(rads) * propForce;
-		//	direction.y = ovni->position.y * -sin(rads) * propForce;
-		//}
+		// second quadrant
+		if (rads > 90 && rads <= 180)
+		{
+			direction.x = ovni->position.x * -cos(rads) * propForce;
+			direction.y = ovni->position.y * sin(rads) * propForce;
+		}
 
-		//// fourth quadrant
-		//if (rads > 270 && rads <= 360)
-		//{
-		//	direction.x = ovni->position.x * -cos(rads) * propForce;
-		//	direction.y = ovni->position.y * sin(rads) * propForce;
-		//}
+		// third quadrant
+		if (rads > 180 && rads <= 270)
+		{
+			direction.x = ovni->position.x * -cos(rads) * propForce;
+			direction.y = ovni->position.y * -sin(rads) * propForce;
+		}
 
-		//ovni->ApplyForce(direction);
+		// fourth quadrant
+		if (rads > 270 && rads <= 360)
+		{
+			direction.x = ovni->position.x * cos(rads) * propForce;
+			direction.y = ovni->position.y * -sin(rads) * propForce;
+		}
 
-		ovni->position.y -= 5;
+		ovni->ApplyForce(direction);
 	}
 
 	currentAnimation->Update(dt);
 	
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &rect);
+	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &rect, 1.0, ovni->rotation);
 
 	playerCollider->SetPos(ovni->position.x + 55, ovni->position.y + 33);
+
+	if (ovni->velocity.x > 500) ovni->velocity.x = 500;
+	if (ovni->velocity.x < -500) ovni->velocity.x = -500;
+	if (ovni->velocity.y > 500) ovni->velocity.y = 500;
+	if (ovni->velocity.y < -500) ovni->velocity.y = -500;
 
 	return true;
 }
@@ -203,11 +180,29 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	// Map Limits
-	if (ovni->position.x <= 0) ovni->position.x = 0;
-	if (ovni->position.y <= 0) ovni->position.y = 0;
-	if (ovni->position.x > 9870) ovni->position.x = 9870;
-	if (ovni->position.y > 630) ovni->position.y = 630;
+	 //Map Limits
+	if (ovni->position.x < 0)
+	{
+		ovni->velocity.x = 0;
+		ovni->ApplyForce({ 25000, 0 });
+	}
+
+	if (ovni->position.y < 0)
+	{
+		ovni->velocity.y = 0;
+		ovni->ApplyForce({ 0, 25000 });
+	}
+	if (ovni->position.x > 9870)
+	{
+		ovni->velocity.x = 0;
+		ovni->ApplyForce({ -25000, 0 });
+	}
+
+	if (ovni->position.y > 630)
+	{
+		ovni->velocity.y = 0;
+		ovni->ApplyForce({ 0, -25000 });
+	}
 
 
 
@@ -262,20 +257,20 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 		{
 			if (c1->x < c2->x)
 			{
-				ovni->position.x -= 5;
+				ovni->velocity.x = -ovni->velocity.x;
 			}
 			else
 			{
-				ovni->position.x += 5;
+				ovni->velocity.x = -ovni->velocity.x;
 			}
 
 			if (c1->y < c2->y)
 			{
-				ovni->position.y -= 5;
+				ovni->velocity.y = -ovni->velocity.y;
 			}
 			else
 			{
-				ovni->position.y += 5;
+				ovni->velocity.y = -ovni->velocity.y;
 			}
 		}
 	}
