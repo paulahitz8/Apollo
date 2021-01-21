@@ -16,11 +16,9 @@ Collisions::Collisions() : Module()
 	}
 
 	matrix[CircleCollider::Type::PLANET][CircleCollider::Type::PLAYER] = true;
+	matrix[CircleCollider::Type::PLAYER][CircleCollider::Type::PLANET] = true;
 	matrix[CircleCollider::Type::FUEL][CircleCollider::Type::PLAYER] = true;
 	matrix[CircleCollider::Type::PLAYER][CircleCollider::Type::FUEL] = true;
-
-	matrix[CircleCollider::Type::PLAYER][CircleCollider::Type::PLANET] = true;
-
 
 }
 

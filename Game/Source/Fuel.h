@@ -41,6 +41,8 @@ public:
 	int fuel;
 	int timer;
 
+	bool isPicked;
+
 	iPoint bottlePos;
 
 	iPoint fuel1Pos;

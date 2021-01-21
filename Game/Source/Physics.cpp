@@ -224,3 +224,35 @@ void Spaceship::NewtonLaw(fPoint totalForce, float mass)
 	acceleration.x = totalForce.x / mass;
 	acceleration.y = totalForce.y / mass;
 }
+
+//void Physics::OnCollision(CircleCollider* c1, CircleCollider* c2)
+//{
+//	if (c1->type == CircleCollider::Type::PLAYER)
+//	{
+//		if (c2->type == CircleCollider::Type::FUEL)
+//		{
+//
+//		}
+//
+//		else if (c2->type == CircleCollider::Type::PLANET)
+//		{
+//			if (c1->x < c2->x)
+//			{
+//				c1->x--;
+//			}
+//			else
+//			{
+//				c1->x++;
+//			}
+//
+//			if (c1->y < c2->y)
+//			{
+//				c1->y--;
+//			}
+//			else
+//			{
+//				c1->y++;
+//			}
+//		}
+//	}
+//}

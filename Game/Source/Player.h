@@ -69,7 +69,7 @@ private:
 
     CircleCollider* playerCollider = nullptr;
 
-    //    void OnCollision(Collider* c1, Collider* c2);
+    void OnCollision(CircleCollider* c1, CircleCollider* c2);
 
 };
 
