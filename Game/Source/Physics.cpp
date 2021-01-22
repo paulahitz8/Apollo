@@ -75,20 +75,20 @@ void Physics::Step(float dt)
 	{
 		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
 		{
-		//	if (app->scene->planetList[i]->id == 6)
-		//	{
-		//		app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
-		//		app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
-		//	}
-		//	else
-		//	{
+			if (app->scene->planetList[i]->id == 6)
+			{
+				//app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
+				app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
+			}
+			else
+			{
 				app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
-		//	}
+			}
 		}
-		//if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
-		//{
-		//	app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
-		//}
+		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
+		{
+			app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
+		}
 	}
 	for (int i = 0; i < app->player->ovni->forces.Count(); i++)
 	{
@@ -157,11 +157,19 @@ fPoint Spaceship::ForceAeroDrag(float density, fPoint shipVel, float frontalArea
 
 fPoint Spaceship::ForceHydroDrag(fPoint shipVel)
 {
-	float b = 1.0f;
-	fPoint hydroDragForce;
+	fPoint vel = shipVel;
+	float b = 10;
 
-	hydroDragForce.x = -b * shipVel.x;
-	hydroDragForce.y = -b * shipVel.y;
+	float dividendo = sqrt(pow(vel.x, 2) + pow(vel.y, 2));
+
+	vel = { vel.x / dividendo, vel.y / dividendo };
+
+	fPoint hydroDragForce = { 0,0 };
+	hydroDragForce.x = shipVel.x * b;
+	hydroDragForce.y = shipVel.y * b;
+
+	hydroDragForce.x = -vel.x * hydroDragForce.x;
+	hydroDragForce.y = -vel.y * hydroDragForce.y;
 
 	return hydroDragForce;
 }
@@ -175,22 +183,24 @@ fPoint Spaceship::ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerR
 
 	if (shipPos.x >= planetPos.x)
 	{
-		buoyancyForce.x = -(density * gravity.x * playerRect.w * playerRect.h);
+		buoyancyForce.x = density * gravity.x * playerRect.w * playerRect.h;
 	}
 	else
 	{
-		buoyancyForce.x = density * gravity.x * playerRect.w * playerRect.h;
+		buoyancyForce.x = -(density * gravity.x * playerRect.w * playerRect.h);
 	}
 
 	if (shipPos.y >= planetPos.y)
 	{
-		buoyancyForce.y = -(density * gravity.y * playerRect.w * playerRect.h);
+		buoyancyForce.y = density * gravity.y * playerRect.w * playerRect.h;
 	}
 	else
 	{
-		buoyancyForce.y = density * gravity.y * playerRect.w * playerRect.h;
+		buoyancyForce.y = -(density * gravity.y * playerRect.w * playerRect.h);
 	}
-
+	buoyancyForce.x = buoyancyForce.x / 2;
+	buoyancyForce.y = buoyancyForce.y / 2;
+	
 	return buoyancyForce;
 }
 
