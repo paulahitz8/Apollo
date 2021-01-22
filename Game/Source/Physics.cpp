@@ -71,31 +71,24 @@ void Physics::Step(float dt)
 	app->player->ovni->totalForce = { 0.0f, 0.0f };
 	app->player->ovni->acceleration = { 0.0f, 0.0f };
 
-
-	//gravityy = app->player->ovni->ForceGravity(5, 50, app->player->ovni->position, app->scene->planetHome->position);
-
-	//app->player->ovni->NewtonLaw(gravityy, app->player->ovni->mass);
-
-	//LOG("this is dt  %dt");
-
 	for (int i = 0; i < app->scene->planetList.Count(); i++)
 	{
-		/*if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
+		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
 		{
-			if (app->scene->planetList[i]->id == 6)
-			{
-				app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
-				app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
-			}
-			else
-			{
+		//	if (app->scene->planetList[i]->id == 6)
+		//	{
+		//		app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
+		//		app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
+		//	}
+		//	else
+		//	{
 				app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
-			}
-		}*/
-		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
-		{
-			app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
+		//	}
 		}
+		//if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
+		//{
+		//	app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
+		//}
 	}
 	for (int i = 0; i < app->player->ovni->forces.Count(); i++)
 	{
@@ -108,7 +101,6 @@ void Physics::Step(float dt)
 
 	Integrate(dt);
 
-	//gravityy = { 0.0f, 0.0f };
 }
 
 void Physics::Integrate(float dt)
@@ -152,6 +144,14 @@ fPoint Spaceship::ForceAeroDrag(float density, fPoint shipVel, float frontalArea
 	aeroDragForce.x = 0.5 * density * shipVel.x * shipVel.x * frontalArea * dragCoefficient;
 	aeroDragForce.y = 0.5 * density * shipVel.y * shipVel.y * frontalArea * dragCoefficient;
 
+	if (shipVel.x >= 0)
+	{
+		aeroDragForce.x = -aeroDragForce.x;
+	}
+	if (shipVel.y >= 0)
+	{
+		aeroDragForce.y = -aeroDragForce.y;
+	}
 	return aeroDragForce;
 }
 

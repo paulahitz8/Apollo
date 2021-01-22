@@ -48,42 +48,42 @@ bool Scene::Start()
 	//Home Planet
 	homePos = { 340.0f, 421.0f };
 	homeCol = app->collisions->AddCollider(homePos.x, homePos.y, 231, CircleCollider::Type::PLANET, this);
-	planetHome = new Planet(homePos, 250.0f, 1, homeCol, { 9.8f, 9.8f }, 331, 231, 431, 0.1f, 0.1f);
+	planetHome = new Planet(homePos, 250.0f, 1, homeCol, { 9.8f, 9.8f }, 431, 231, 431, 0.1f, 0.1f);
 
 	//Home Moon
 	moonPos = { 963.0f, 155.0f };
 	moonCol = app->collisions->AddCollider(moonPos.x, moonPos.y, 87, CircleCollider::Type::PLANET, this);
-	moon = new Planet(moonPos, 150.0f, 2, moonCol, { 2.0f, 2.0f }, 187, 87, 287, 0.1f, 0.1f);
+	moon = new Planet(moonPos, 150.0f, 2, moonCol, { 2.0f, 2.0f }, 300, 87, 300, 0.1f, 0.1f);
 
 	// Blue
 	bluePos = { 2720.0f, 338.0f };
 	blueCol = app->collisions->AddCollider(bluePos.x, bluePos.y, 145, CircleCollider::Type::PLANET, this);
-	blue = new Planet(bluePos, 300.0f, 3, blueCol, { 2.0f, 2.0f }, 245, 145, 345, 0.1f, 0.1f);
+	blue = new Planet(bluePos, 300.0f, 3, blueCol, { 2.0f, 2.0f }, 345, 145, 345, 0.1f, 0.1f);
 
 	// GasBoy
 	gasBoyPos = { 4007.0f, 202.0f };
 	gasBoyCol = app->collisions->AddCollider(gasBoyPos.x, gasBoyPos.y, 115, CircleCollider::Type::PLANET, this);
-	gasBoy = new Planet(gasBoyPos, 170.0f, 4, gasBoyCol, { 2.0f, 2.0f }, 215, 115, 315, 0.1f, 0.5f);
+	gasBoy = new Planet(gasBoyPos, 170.0f, 4, gasBoyCol, { 2.0f, 2.0f }, 615, 115, 615, 0.6f, 0.1f);
 
 	// Giant
 	giantPos = { 5455.0f, 800.0f };
 	giantCol = app->collisions->AddCollider(giantPos.x, giantPos.y, 442, CircleCollider::Type::PLANET, this);
-	giant = new Planet(giantPos, 400.0f, 5, giantCol, { 2.0f, 2.0f }, 542, 442, 642, 0.1f, 0.1f);
+	giant = new Planet(giantPos, 400.0f, 5, giantCol, { 2.0f, 2.0f }, 642, 442, 642, 0.1f, 0.1f);
 
 	// AquaBoy
 	aquaBoyPos = { 7558.0f, 340.0f };
 	aquaBoyCol = app->collisions->AddCollider(aquaBoyPos.x, aquaBoyPos.y, 70, CircleCollider::Type::PLANET, this);
-	aquaBoy = new Planet(aquaBoyPos, 160.0f, 6, aquaBoyCol, { 2.0f, 2.0f }, 170, 70, 270, 0.1f, 0.8f);
+	aquaBoy = new Planet(aquaBoyPos, 160.0f, 6, aquaBoyCol, { 2.0f, 2.0f }, 570, 70, 570, 0.1f, 0.8f);
 
 	// newMoon
 	newMoonPos = { 8902.0f, 578.0f };
 	newMoonCol = app->collisions->AddCollider(newMoonPos.x, newMoonPos.y, 61, CircleCollider::Type::PLANET, this);
-	newMoon = new Planet(newMoonPos, 150.0f, 7, newMoonCol, { 2.0f, 2.0f }, 161, 61, 261, 0.1f, 0.1f);
+	newMoon = new Planet(newMoonPos, 150.0f, 7, newMoonCol, { 2.0f, 2.0f }, 261, 61, 261, 0.1f, 0.1f);
 
 	// newHome
 	newHomePos = { 9586.0f, 356.0f };
 	newHomeCol = app->collisions->AddCollider(newHomePos.x, newHomePos.y, 231, CircleCollider::Type::PLANET, this);
-	newHome = new Planet(newHomePos, 270.0f, 8, newHomeCol, { 2.0f, 2.0f }, 331, 231, 431, 0.1f, 0.1f);
+	newHome = new Planet(newHomePos, 270.0f, 8, newHomeCol, { 2.0f, 2.0f }, 431, 231, 431, 0.1f, 0.1f);
 
 	planetList.Add(planetHome);
 	planetList.Add(moon);
