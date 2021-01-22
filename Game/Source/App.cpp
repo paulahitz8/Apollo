@@ -237,8 +237,8 @@ void App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s   Fuel: %d",
-		frames, averageFps, lastFrameMs, app->render->vsync, app->fuel->fuel);
+	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s   Fuel: %d    Num forces: %d",
+		frames, averageFps, lastFrameMs, app->render->vsync, app->fuel->fuel, app->player->ovni->forces.Count());
 	app->win->SetTitle(title);
 }
 

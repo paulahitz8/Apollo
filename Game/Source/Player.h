@@ -47,6 +47,7 @@ public:
 
     fPoint playerPos;
 	fPoint playerAcceleration;
+    fPoint playerVelocity;
 	int playerFuel;
     float playerRotation;
     float propForce;

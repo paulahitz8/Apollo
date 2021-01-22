@@ -20,7 +20,7 @@ Physics::~Physics() {}
 
 bool Physics::Awake(pugi::xml_node&)
 {
-
+	gravityy = { 0.0f, 0.0f };
 	return true;
 }
 
@@ -61,81 +61,86 @@ bool Physics::PostUpdate()
 
 bool Physics::CleanUp()
 {
-	
+
 	return true;
 }
 
 void Physics::Step(float dt)
 {
-	//app->player->ovni->velocity = { 10.0f, 10.0f };
-	//for (int i = 0; i < app->scene->planetList.Count(); i++)
-	//{
-	//	if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
-	//	{
-	//		if (app->scene->planetList[i]->id == 6)
-	//		{
-	//			app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
-	//			app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
-	//		}
-	//		else
-	//		{
-	//			app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
-	//		}
-	//	}
-	//	if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
-	//	{
-	//		app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
-	//	}
-	//}
+	
+	app->player->ovni->totalForce = { 0.0f, 0.0f };
+	app->player->ovni->acceleration = { 0.0f, 0.0f };
 
 
+	//gravityy = app->player->ovni->ForceGravity(5, 50, app->player->ovni->position, app->scene->planetHome->position);
+
+	//app->player->ovni->NewtonLaw(gravityy, app->player->ovni->mass);
+
+	//LOG("this is dt  %dt");
+
+	for (int i = 0; i < app->scene->planetList.Count(); i++)
+	{
+		/*if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->fluidRad * app->scene->planetList[i]->fluidRad))
+		{
+			if (app->scene->planetList[i]->id == 6)
+			{
+				app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
+				app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
+			}
+			else
+			{
+				app->player->ovni->forces.Add(app->player->ovni->ForceAeroDrag(app->scene->planetList[i]->density, app->player->ovni->velocity, 5.0f, app->scene->planetList[i]->dragCoefficient));
+			}
+		}*/
+		if ((pow(((app->player->ovni->position.x + (app->player->playerRect.w / 2)) - app->scene->planetList[i]->position.x), 2) + pow(((app->player->ovni->position.y + (app->player->playerRect.h / 2)) - app->scene->planetList[i]->position.y), 2)) < (app->scene->planetList[i]->orbitRad * app->scene->planetList[i]->orbitRad))
+		{
+			app->player->ovni->forces.Add(app->player->ovni->ForceGravity(app->player->ovni->mass, app->scene->planetList[i]->mass, app->player->ovni->position, app->scene->planetList[i]->position));
+		}
+	}
 	for (int i = 0; i < app->player->ovni->forces.Count(); i++)
 	{
 		app->player->ovni->totalForce.x += app->player->ovni->forces[i].x;
 		app->player->ovni->totalForce.y += app->player->ovni->forces[i].y;
 	}
 	app->player->ovni->forces.Clear();
+
 	app->player->ovni->NewtonLaw(app->player->ovni->totalForce, app->player->ovni->mass);
-	app->player->ovni->totalForce = { 0.0f, 0.0f };
-	Integrate(app->player->ovni, dt);
-	app->player->ovni->acceleration = { 0.0f, 0.0f };
+
+	Integrate(dt);
+
+	//gravityy = { 0.0f, 0.0f };
 }
 
-void Physics::Integrate(Spaceship* body, float dt)
+void Physics::Integrate(float dt)
 {
-	body->position.x += body->velocity.x * dt + 0.5f * body->acceleration.x * dt * dt;
-	body->velocity.x += body->acceleration.x * dt;
+	app->player->ovni->position.x += app->player->ovni->velocity.x * dt + 0.5f * app->player->ovni->acceleration.x * dt * dt;
+	app->player->ovni->velocity.x += app->player->ovni->acceleration.x * dt;
 
-	body->position.y += body->velocity.y * dt + 0.5f * body->acceleration.y * dt * dt;
-	body->velocity.y += body->acceleration.y * dt;
+	app->player->ovni->position.y += app->player->ovni->velocity.y * dt + 0.5f * app->player->ovni->acceleration.y * dt * dt;
+	app->player->ovni->velocity.y += app->player->ovni->acceleration.y * dt;
 }
 
 fPoint Spaceship::ForceGravity(float shipMass, float planetMass, fPoint shipPos, fPoint planetPos)
 {
-	float G = 30;
+	float G = 40;
 
+	float gravityF;
 	fPoint gravityForce;
 
-	float rx = sqrt(pow((shipPos.x - planetPos.x), 2));
-	float ry = sqrt(pow((shipPos.y - planetPos.y), 2));
+	fPoint newVec = { planetPos - shipPos };
+	float dividendo = sqrt(newVec.x * newVec.x + newVec.y * newVec.y);
 
-	if (shipPos.x >= planetPos.x)
+	if (dividendo < 5)
 	{
-		gravityForce.x = -G * ((shipMass * planetMass) / (rx * rx));
-	}
-	else
-	{
-		gravityForce.x = G * ((shipMass * planetMass) / (rx * rx));
+		dividendo = 5;
 	}
 
-	if (shipPos.y >= planetPos.y)
-	{
-		gravityForce.y = -G * ((shipMass * planetMass) / (ry * ry));
-	}
-	else
-	{
-		gravityForce.y = G * ((shipMass * planetMass) / (ry * ry));
-	}
+	newVec = { newVec.x / dividendo, newVec.y / dividendo };
+
+	gravityF = G * ((shipMass * planetMass) / dividendo);
+
+	gravityForce.x = newVec.x * gravityF;
+	gravityForce.y = newVec.y * gravityF;
 
 	return gravityForce;
 }
@@ -204,7 +209,7 @@ Planet::Planet(fPoint position, float mass, int id, CircleCollider* collider, fP
 	this->dragCoefficient = dragCoefficient;
 }
 
-Spaceship::Spaceship(fPoint position, float mass, CircleCollider* collider, fPoint acceleration, float frontalArea, int fuel, float rotation)
+Spaceship::Spaceship(fPoint position, float mass, CircleCollider* collider, fPoint velocity, fPoint acceleration, float frontalArea, int fuel, float rotation)
 {
 	this->position = position;
 	this->mass = mass;
@@ -226,35 +231,3 @@ void Spaceship::NewtonLaw(fPoint totalForce, float mass)
 	acceleration.x = totalForce.x / mass;
 	acceleration.y = totalForce.y / mass;
 }
-
-//void Physics::OnCollision(CircleCollider* c1, CircleCollider* c2)
-//{
-//	if (c1->type == CircleCollider::Type::PLAYER)
-//	{
-//		if (c2->type == CircleCollider::Type::FUEL)
-//		{
-//
-//		}
-//
-//		else if (c2->type == CircleCollider::Type::PLANET)
-//		{
-//			if (c1->x < c2->x)
-//			{
-//				c1->x--;
-//			}
-//			else
-//			{
-//				c1->x++;
-//			}
-//
-//			if (c1->y < c2->y)
-//			{
-//				c1->y--;
-//			}
-//			else
-//			{
-//				c1->y++;
-//			}
-//		}
-//	}
-//}

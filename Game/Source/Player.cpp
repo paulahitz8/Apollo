@@ -73,13 +73,14 @@ bool Player::Start()
 
 	playerPos = { 700.0f, 350.0f };
 	playerAcceleration = { 0.0f, 0.0f };
+	playerVelocity = { 0.0f, 0.0f };
 	playerFuel = 100;
 	playerRotation = 0;
 	propForce = 30.0f;
 	pi = 3.1416f;
 	turnAngle = 4.0f;
 
-	ovni = new Spaceship(playerPos, 5.0f, playerCollider, playerAcceleration, 2.0f, playerFuel, playerRotation);
+	ovni = new Spaceship(playerPos, 5.0f, playerCollider, playerVelocity, playerAcceleration, 2.0f, playerFuel, playerRotation);
 	playerCollider = app->collisions->AddCollider(ovni->position.x + 33, ovni->position.y + 33, 33, CircleCollider::Type::PLAYER, this);
 
 	playerRect = { 78,132,112,67 };
@@ -257,20 +258,20 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 		{
 			if (c1->x < c2->x)
 			{
-				ovni->velocity.x = -ovni->velocity.x;
+				ovni->velocity.x = -ovni->velocity.x/2;
 			}
 			else
 			{
-				ovni->velocity.x = -ovni->velocity.x;
+				ovni->velocity.x = -ovni->velocity.x/2;
 			}
 
 			if (c1->y < c2->y)
 			{
-				ovni->velocity.y = -ovni->velocity.y;
+				ovni->velocity.y = -ovni->velocity.y/2;
 			}
 			else
 			{
-				ovni->velocity.y = -ovni->velocity.y;
+				ovni->velocity.y = -ovni->velocity.y/2;
 			}
 		}
 	}

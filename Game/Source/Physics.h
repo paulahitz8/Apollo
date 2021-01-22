@@ -32,7 +32,7 @@ public:
 
 public:
 
-	Spaceship(fPoint position, float mass, CircleCollider* collider,  fPoint acceleration, float frontalArea, int fuel, float rotation);
+	Spaceship(fPoint position, float mass, CircleCollider* collider, fPoint velocity, fPoint acceleration, float frontalArea, int fuel, float rotation);
 	//~Spaceship();
 
 	//void Shoot();
@@ -42,6 +42,7 @@ public:
 	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect, fPoint shipPos, fPoint planetPos);
 	void ApplyForce(fPoint force);
 	void Rotate(Spaceship body, float angle);
+	void OnCollision(CircleCollider* c1, CircleCollider* c2);
 	void SolveCollision();
 	void NewtonLaw(fPoint totalForce, float mass);
 	// void NewtonThirdLaw(); si añadimos otros dynamic bodies
@@ -89,9 +90,9 @@ public:
 public:
 
 	void Step(float dt);
-	void Integrate(Spaceship* value, float dt);
-	//void OnCollision(CircleCollider* c1, CircleCollider* c2);
+	void Integrate(float dt);
 
+	fPoint gravityy;
 	int timer = 0;
 
 };
