@@ -11,6 +11,7 @@
 #include "Window.h"
 #include "Fuel.h"
 #include "Asteroid.h"
+#include "Font.h"
 
 Player::Player()
 {
@@ -77,7 +78,7 @@ bool Player::Start()
 	propForce = 30.0f;
 	pi = 3.1416f;
 	turnAngle = 4.0f;
-
+	
 	//Scan
 	scan = false;
 	colliding = false;
@@ -88,6 +89,8 @@ bool Player::Start()
 	playerCollider = app->collisions->AddCollider(ovni->position.x + 33, ovni->position.y + 33, 33, CircleCollider::Type::PLAYER, this);
 
 	playerRect = { 78,132,112,67 };
+
+	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
 
 	return true;
 }
@@ -122,12 +125,12 @@ bool Player::Update(float dt)
 				dist = newDist;
 				weAreIn = app->scene->planetList[i];
 			}
-
 		}
-
 	}
 
-	if (scan == false)
+	if (scan && scanTimer < 150) app->render->DrawText(font, "SCANNING...", 480, 600, 60, 4, { 255, 255, 255, 255 });
+
+	if (!scan)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
@@ -195,10 +198,12 @@ bool Player::Update(float dt)
 		{
 			if (weAreIn->id == 8)
 			{
+				app->render->DrawText(font, "SUCCESS: this planet is habitable", 400, 600, 25, 4, { 160, 255, 179, 255 });
 				currentAnimation = &scanYes;
 			}
 			else
 			{
+				app->render->DrawText(font, "ERROR: this planet is not habitable", 400, 600, 25, 4, { 194, 42, 51, 255 });
 				currentAnimation = &scanNo;
 			}
 			
@@ -359,7 +364,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 				app->asteroid->as1Boom = true;
 			}
 
-			if (c2->x == 1800 + 33)
+			if (c2->x == 1800 + 25)
 			{
 				app->asteroid->as2Boom = true;
 			}

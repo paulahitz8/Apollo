@@ -36,25 +36,25 @@ bool Asteroid::Start()
 
 	asteroid1Pos = { 1700.0f, 350.0f };
 	asteroid1Col = app->collisions->AddCollider(asteroid1Pos.x + 33, asteroid1Pos.y + 33, 33, CircleCollider::Type::ASTEROID, this);
-	asteroid1Rect = { 40, 20, 90, 80 };
+	asteroid1Rect = { 39, 25, 90, 88 };
 	direction1 = true;
 	as1Boom = false;
 
 	asteroid2Pos = { 1800.0f, 350.0f };
-	asteroid2Col = app->collisions->AddCollider(asteroid2Pos.x + 33, asteroid2Pos.y + 33, 33, CircleCollider::Type::ASTEROID, this);
-	asteroid2Rect = { 40, 20, 90, 80 };
+	asteroid2Col = app->collisions->AddCollider(asteroid2Pos.x + 25, asteroid2Pos.y + 25, 25, CircleCollider::Type::ASTEROID, this);
+	asteroid2Rect = { 278, 140, 53, 58 };
 	direction2 = false;
 	as2Boom = false;
 
 	asteroid3Pos = { 6300.0f, 350.0f };
 	asteroid3Col = app->collisions->AddCollider(asteroid3Pos.x + 33, asteroid3Pos.y + 33, 33, CircleCollider::Type::ASTEROID, this);
-	asteroid3Rect = { 40, 20, 90, 80 };
+	asteroid3Rect = { 255, 27, 76, 69 };
 	direction3 = true;
 	as3Boom = false;
 
 	asteroid4Pos = { 6400.0f, 350.0f };
 	asteroid4Col = app->collisions->AddCollider(asteroid4Pos.x + 33, asteroid4Pos.y + 33, 33, CircleCollider::Type::ASTEROID, this);
-	asteroid4Rect = { 40, 20, 90, 80 };
+	asteroid4Rect = { 458, 21, 80, 88 };
 	direction4 = false;
 	as4Boom = false;
 
@@ -147,7 +147,7 @@ bool Asteroid::Update(float dt)
 	}
 
 	asteroid1Col->SetPos(asteroid1Pos.x + 33, asteroid1Pos.y + 33);
-	asteroid2Col->SetPos(asteroid2Pos.x + 33, asteroid2Pos.y + 33);
+	asteroid2Col->SetPos(asteroid2Pos.x + 25, asteroid2Pos.y + 25);
 	asteroid3Col->SetPos(asteroid3Pos.x + 33, asteroid3Pos.y + 33);
 	asteroid4Col->SetPos(asteroid4Pos.x + 33, asteroid4Pos.y + 33);
 
