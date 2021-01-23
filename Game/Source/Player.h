@@ -10,6 +10,7 @@
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
+class Font;
 
 class Player : public Module
 {
@@ -75,6 +76,8 @@ private:
     CircleCollider* playerCollider = nullptr;
 
     void OnCollision(CircleCollider* c1, CircleCollider* c2);
+
+    Font* font;
 
 };
 
