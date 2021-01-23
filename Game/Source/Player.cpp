@@ -359,7 +359,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 				app->asteroid->as1Boom = true;
 			}
 
-			if (c2->x == 1800 + 33)
+			if (c2->x == 1800 + 25)
 			{
 				app->asteroid->as2Boom = true;
 			}
