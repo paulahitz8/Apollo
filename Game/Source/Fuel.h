@@ -39,7 +39,6 @@ public:
 	SDL_Rect bottle_100;
 
 	int fuel;
-	int timer;
 
 	bool isPicked;
 

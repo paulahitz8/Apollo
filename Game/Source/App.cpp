@@ -14,6 +14,10 @@
 #include "Hearts.h"
 #include "Fuel.h"
 #include "Asteroid.h"
+#include "DeathScreen.h"
+#include "WinScreen.h"
+#include "Battery.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -41,6 +45,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fuel = new Fuel();
 	asteroid = new Asteroid();
 	hearts = new Hearts();
+	deathScreen = new DeathScreen();
+	battery = new Battery();
+	winScreen = new WinScreen();
 
 
 	// Ordered for awake / Start / Update
@@ -54,13 +61,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(asteroid);
 	AddModule(player);
 	AddModule(fuel);
+	AddModule(battery);
 	AddModule(hearts);
 	AddModule(fadeScreen);
 	AddModule(collisions);
-	//AddModule(logoScreen);
-	//AddModule(titleScreen);
-	//AddModule(deathScreen);
-	//AddModule(winScreen);
+	AddModule(logoScreen);
+	AddModule(titleScreen);
+	AddModule(deathScreen);
+	AddModule(winScreen);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -237,8 +245,8 @@ void App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s   Fuel: %d    Num forces: %d",
-		frames, averageFps, lastFrameMs, app->render->vsync, app->fuel->fuel, app->player->ovni->forces.Count());
+	sprintf_s(title, 256, "FPS: %d   Avg. FPS: %.2f   Last-frame MS: %02u   Vsync: %s    Lives: %d",
+		frames, averageFps, lastFrameMs, app->render->vsync, app->player->lives);
 	app->win->SetTitle(title);
 }
 

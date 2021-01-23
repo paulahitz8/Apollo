@@ -44,7 +44,7 @@ bool Player::Awake(pugi::xml_node&)
 	scanNo.PushBack({ 1098, 207, 112, 68 });
 
 	// Animation scanYes;
-	scanYes.PushBack({ 1098, 207, 112, 68 });
+	scanYes.PushBack({ 971, 208, 112, 68 });
 
 	// Animation impulse;
 	impulse.PushBack({ 77, 47, 112, 68 });
@@ -100,11 +100,11 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	//if (timer < 500)
-	//{
-	//	timer++;
-	//	return true;
-	//}
+	if (timer < 500)
+	{
+		timer++;
+		return true;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
 	{
@@ -210,6 +210,12 @@ bool Player::Update(float dt)
 			}
 		}
 		scanTimer++;
+	}
+
+	if (lives == 0)
+	{
+		app->fadeScreen->active = true;
+		app->fadeScreen->FadeToBlack(this, (Module*)app->deathScreen, 60.0f);
 	}
 
 	currentAnimation->Update(dt);

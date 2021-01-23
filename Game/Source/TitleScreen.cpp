@@ -54,7 +54,7 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	rect = { 0, 0, 1200, 700 };
-	app->render->DrawTexture(titleScreen, 0, 0, &rect);
+	app->render->DrawTexture(titleScreen, 0 - app->render->camera.x, 0, &rect);
 
 	timer++;
 
