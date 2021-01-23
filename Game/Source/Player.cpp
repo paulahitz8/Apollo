@@ -40,7 +40,7 @@ bool Player::Awake(pugi::xml_node&)
 	scanPlanet.speed = 2.0f;
 
 	// Animation scanNo;
-	scanNo.PushBack({ 77, 221, 112, 68 });
+	scanNo.PushBack({ 1098, 207, 112, 68 });
 
 	// Animation scanYes;
 	scanYes.PushBack({ 1098, 207, 112, 68 });
@@ -201,10 +201,11 @@ bool Player::Update(float dt)
 				currentAnimation = &scanNo;
 			}
 			
-			if (scanTimer > 170)
+			if (scanTimer > 220)
 			{
 				scan = false;
 				scanTimer = 0;
+				currentAnimation = &idle;
 			}
 		}
 		scanTimer++;
