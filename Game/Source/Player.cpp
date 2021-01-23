@@ -13,9 +13,7 @@
 
 Player::Player()
 {
-	name.Create("player");
-
-
+name.Create("player");
 }
 
 Player::~Player() {}
@@ -39,8 +37,7 @@ bool Player::Awake(pugi::xml_node&)
 	scanPlanet.PushBack({ 385, 216, 112, 68 });
 	scanPlanet.PushBack({ 538, 215, 112, 68 });
 	scanPlanet.PushBack({ 682, 215, 112, 68 });
-	scanPlanet.PushBack({ 835, 213, 112, 68 });
-	scanPlanet.speed = 5.0f;
+	scanPlanet.speed = 2.0f;
 
 	// Animation scanNo;
 	scanNo.PushBack({ 77, 221, 112, 68 });
@@ -80,6 +77,12 @@ bool Player::Start()
 	pi = 3.1416f;
 	turnAngle = 4.0f;
 
+	//Scan
+	scan = false;
+	colliding = false;
+	weAreIn = nullptr;
+	scanTimer = 0;
+
 	ovni = new Spaceship(playerPos, 5.0f, playerCollider, playerVelocity, playerAcceleration, 2.0f, playerFuel, playerRotation);
 	playerCollider = app->collisions->AddCollider(ovni->position.x + 33, ovni->position.y + 33, 33, CircleCollider::Type::PLAYER, this);
 
@@ -102,65 +105,109 @@ bool Player::Update(float dt)
 	//	return true;
 	//}
 
-	
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
 	{
-		ovni->rotation += turnAngle;
-		if (ovni->rotation > 360)
+		scan = true;
+		currentAnimation = &scanPlanet;
+		float dist = 1500000;
+
+		for (int i = 0; i < app->scene->planetList.Count(); i++)
 		{
-			ovni->rotation = ovni->rotation / 360;
+			fPoint auxVec = app->scene->planetList[i]->position - ovni->position;
+			float newDist = sqrt(auxVec.x * auxVec.x + auxVec.y * auxVec.y);
+
+			if (newDist < dist)
+			{
+				dist = newDist;
+				weAreIn = app->scene->planetList[i];
+			}
+
 		}
+
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (scan == false)
 	{
-		ovni->rotation -= turnAngle;
-		if (ovni->rotation > 360)
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			ovni->rotation = ovni->rotation / 360;
+			ovni->rotation += turnAngle;
+			if (ovni->rotation > 360)
+			{
+				ovni->rotation = ovni->rotation / 360;
+			}
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			ovni->rotation -= turnAngle;
+			if (ovni->rotation > 360)
+			{
+				ovni->rotation = ovni->rotation / 360;
+			}
+		}
+
+		if (ovni->rotation < 0)
+		{
+			ovni->rotation = 360 + ovni->rotation;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			fPoint direction = { 0.0f, 0.0f };
+
+			float rads = ovni->rotation * pi / 180;
+
+			// first quadrant
+			if (rads >= 0 && rads <= 90)
+			{
+				direction.x = ovni->position.x * cos(rads) * propForce;
+				direction.y = ovni->position.y * sin(rads) * propForce;
+			}
+
+			// second quadrant
+			if (rads > 90 && rads <= 180)
+			{
+				direction.x = ovni->position.x * -cos(rads) * propForce;
+				direction.y = ovni->position.y * sin(rads) * propForce;
+			}
+
+			// third quadrant
+			if (rads > 180 && rads <= 270)
+			{
+				direction.x = ovni->position.x * -cos(rads) * propForce;
+				direction.y = ovni->position.y * -sin(rads) * propForce;
+			}
+
+			// fourth quadrant
+			if (rads > 270 && rads <= 360)
+			{
+				direction.x = ovni->position.x * cos(rads) * propForce;
+				direction.y = ovni->position.y * -sin(rads) * propForce;
+			}
+
+			ovni->ApplyForce(direction);
 		}
 	}
-
-	if (ovni->rotation < 0)
+	else 
 	{
-		ovni->rotation = 360 + ovni->rotation;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		fPoint direction = { 0.0f, 0.0f };
-
-		float rads = ovni->rotation * pi / 180;
-
-		// first quadrant
-		if (rads >= 0 && rads <= 90)
+		if (scanTimer > 150)
 		{
-			direction.x = ovni->position.x * cos(rads) * propForce;
-			direction.y = ovni->position.y * sin(rads) * propForce;
+			if (weAreIn->id == 8)
+			{
+				currentAnimation = &scanYes;
+			}
+			else
+			{
+				currentAnimation = &scanNo;
+			}
+			
+			if (scanTimer > 170)
+			{
+				scan = false;
+				scanTimer = 0;
+			}
 		}
-
-		// second quadrant
-		if (rads > 90 && rads <= 180)
-		{
-			direction.x = ovni->position.x * -cos(rads) * propForce;
-			direction.y = ovni->position.y * sin(rads) * propForce;
-		}
-
-		// third quadrant
-		if (rads > 180 && rads <= 270)
-		{
-			direction.x = ovni->position.x * -cos(rads) * propForce;
-			direction.y = ovni->position.y * -sin(rads) * propForce;
-		}
-
-		// fourth quadrant
-		if (rads > 270 && rads <= 360)
-		{
-			direction.x = ovni->position.x * cos(rads) * propForce;
-			direction.y = ovni->position.y * -sin(rads) * propForce;
-		}
-
-		ovni->ApplyForce(direction);
+		scanTimer++;
 	}
 
 	currentAnimation->Update(dt);
@@ -256,6 +303,8 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 
 		else if (c2->type == CircleCollider::Type::PLANET)
 		{
+			colliding = true;
+
 			if (c1->x < c2->x)
 			{
 				ovni->velocity.x = -ovni->velocity.x/2;

@@ -54,9 +54,13 @@ public:
     float pi;
     float turnAngle;
     bool godMode = false;
-    bool isDead = false;
+	bool isDead = false; 
+	bool scan = false;
+	bool colliding = false;
     int lives;
+	int scanTimer;
 
+	Planet* weAreIn;
 
 private:
 
