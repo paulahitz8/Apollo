@@ -44,7 +44,7 @@ bool Player::Awake(pugi::xml_node&)
 	scanNo.PushBack({ 1098, 207, 112, 68 });
 
 	// Animation scanYes;
-	scanYes.PushBack({ 1098, 207, 112, 68 });
+	scanYes.PushBack({ 971, 208, 112, 68 });
 
 	// Animation impulse;
 	impulse.PushBack({ 77, 47, 112, 68 });
@@ -334,7 +334,6 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 
 		else if (c2->type == CircleCollider::Type::ASTEROID)
 		{
-			lives--;
 			if (c1->x < c2->x)
 			{
 				ovni->velocity.x = -ovni->velocity.x / 2;
