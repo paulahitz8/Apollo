@@ -48,7 +48,6 @@ bool Fuel::Start()
 	bottle_100 = { 727, 19, 77, 163 };
 
 	fuel = 100;
-	timer = 0;
 	isPicked = false;
 
 	fuel1Collider = app->collisions->AddCollider(fuel1Pos.x, fuel1Pos.y, 26, CircleCollider::Type::FUEL, this);
@@ -89,15 +88,7 @@ bool Fuel::Update(float dt)
 	}
 
 	if (fuel > 100) fuel = 100;
-	if (fuel < 0) fuel = 0;
-
-
-	if (timer > 30)
-	{
-		fuel -= 1;
-		timer = 0;
-	}
-	timer++;
+	if (fuel <= 0) fuel = 0;
 
 	currentAnimation->Update(dt);
 

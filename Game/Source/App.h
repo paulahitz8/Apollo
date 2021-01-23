@@ -28,6 +28,9 @@ class TitleScreen;
 class Fuel;
 class Hearts;
 class Asteroid;
+class DeathScreen;
+class WinScreen;
+class Battery;
 
 class App
 {
@@ -99,6 +102,9 @@ public:
 	Fuel* fuel;
 	Hearts* hearts;
 	Asteroid* asteroid;
+	DeathScreen* deathScreen;
+	WinScreen* winScreen;
+	Battery* battery;
 
 private:
 

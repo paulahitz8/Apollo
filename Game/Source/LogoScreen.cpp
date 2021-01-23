@@ -7,6 +7,8 @@
 #include "FadeScreen.h"
 #include "LogoScreen.h"
 #include "TitleScreen.h"
+#include "DeathScreen.h"
+#include "WinScreen.h"
 #include "Player.h"
 #include "Scene.h"
 
@@ -38,6 +40,8 @@ bool LogoScreen::Start()
 	bool ret = true;
 
 	app->titleScreen->active = false;
+	app->deathScreen->active = false;
+	app->winScreen->active = false;
 
 	logoScreen = app->tex->Load("Assets/Textures/logo_screen.png");
 
@@ -54,7 +58,7 @@ bool LogoScreen::PreUpdate()
 bool LogoScreen::Update(float dt)
 {
 	rect = { 0, 0, 1200, 700 };
-	app->render->DrawTexture(logoScreen, 0, 0, &rect);
+	app->render->DrawTexture(logoScreen, 0 - app->render->camera.x, 0, &rect);
 	timer++;
 
 	return true;

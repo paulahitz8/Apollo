@@ -99,11 +99,11 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	//if (timer < 500)
-	//{
-	//	timer++;
-	//	return true;
-	//}
+	if (timer < 500)
+	{
+		timer++;
+		return true;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
 	{
@@ -209,6 +209,12 @@ bool Player::Update(float dt)
 			}
 		}
 		scanTimer++;
+	}
+
+	if (lives == 0)
+	{
+		app->fadeScreen->active = true;
+		app->fadeScreen->FadeToBlack(this, (Module*)app->deathScreen, 60.0f);
 	}
 
 	currentAnimation->Update(dt);
@@ -327,6 +333,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 
 		else if (c2->type == CircleCollider::Type::ASTEROID)
 		{
+			lives--;
 			if (c1->x < c2->x)
 			{
 				ovni->velocity.x = -ovni->velocity.x / 2;
