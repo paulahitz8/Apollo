@@ -198,8 +198,8 @@ fPoint Spaceship::ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerR
 	{
 		buoyancyForce.y = -(density * gravity.y * playerRect.w * playerRect.h);
 	}
-	buoyancyForce.x = buoyancyForce.x / 2;
-	buoyancyForce.y = buoyancyForce.y / 2;
+	buoyancyForce.x = buoyancyForce.x / 1.5;
+	buoyancyForce.y = buoyancyForce.y / 1.5;
 	
 	return buoyancyForce;
 }
