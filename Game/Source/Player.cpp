@@ -10,6 +10,7 @@
 #include "FadeScreen.h"
 #include "Window.h"
 #include "Fuel.h"
+#include "Asteroid.h"
 
 Player::Player()
 {
@@ -343,6 +344,28 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 			else
 			{
 				ovni->velocity.y = -ovni->velocity.y / 2;
+			}
+			lives--;
+			c2->pendingToDelete = true;
+
+			if (c2->x == 1700 + 33)
+			{
+				app->asteroid->as1Boom = true;
+			}
+
+			if (c2->x == 1800 + 33)
+			{
+				app->asteroid->as2Boom = true;
+			}
+
+			if (c2->x == 6300 + 33)
+			{
+				app->asteroid->as3Boom = true;
+			}
+
+			if (c2->x == 6400 + 33)
+			{
+				app->asteroid->as4Boom = true;
 			}
 		}
 	}

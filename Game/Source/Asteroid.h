@@ -29,6 +29,10 @@ public:
 
 	bool CleanUp();
 
+	bool as1Boom;
+	bool as2Boom;
+	bool as3Boom;
+	bool as4Boom;
 
 private:
 
