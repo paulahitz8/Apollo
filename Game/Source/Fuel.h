@@ -40,18 +40,27 @@ public:
 
 	int fuel;
 
-	bool isPicked;
+	bool isPicked1;
+	bool isPicked2;
+	bool isPicked3;
+	bool isPicked4;
 
 	iPoint bottlePos;
 
 	iPoint fuel1Pos;
+	iPoint fuel2Pos;
+	iPoint fuel3Pos;
 
 private:
 
-	Animation* currentAnimation = &fuelAnim;
+	Animation* currentAnimation1 = &fuelAnim;
+	Animation* currentAnimation2 = &fuelAnim;
+	Animation* currentAnimation3 = &fuelAnim;
 	Animation fuelAnim;
 
 	CircleCollider* fuel1Collider = nullptr;
+	CircleCollider* fuel2Collider = nullptr;
+	CircleCollider* fuel3Collider = nullptr;
 };
 
 #endif // __FUEL_H__

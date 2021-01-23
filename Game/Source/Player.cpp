@@ -97,6 +97,8 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+	colliding = false;
+
 	return true;
 }
 
@@ -108,6 +110,7 @@ bool Player::Update(float dt)
 		timer++;
 		return true;
 	}
+
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
 	{
@@ -127,6 +130,8 @@ bool Player::Update(float dt)
 			}
 		}
 	}
+
+	if (colliding && !scan) app->render->DrawText(font, "PRESS S TO SCAN", 450, 620, 35, 4, { 255, 255, 255, 255 });
 
 	if (scan && scanTimer < 150) app->render->DrawText(font, "SCANNING...", 480, 600, 60, 4, { 255, 255, 255, 255 });
 
@@ -157,6 +162,8 @@ bool Player::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
+			app->fuel->fuel -= 1;
+
 			fPoint direction = { 0.0f, 0.0f };
 
 			float rads = ovni->rotation * pi / 180;
@@ -198,16 +205,16 @@ bool Player::Update(float dt)
 		{
 			if (weAreIn->id == 8)
 			{
-				app->render->DrawText(font, "SUCCESS: this planet is habitable", 400, 600, 25, 4, { 160, 255, 179, 255 });
+				app->render->DrawText(font, "SUCCESS: this planet is habitable", 300, 620, 35, 4, { 160, 255, 179, 255 });
 				currentAnimation = &scanYes;
 			}
 			else
 			{
-				app->render->DrawText(font, "ERROR: this planet is not habitable", 400, 600, 25, 4, { 194, 42, 51, 255 });
+				app->render->DrawText(font, "ERROR: this planet is not habitable", 300, 620, 35, 4, { 194, 42, 51, 255 });
 				currentAnimation = &scanNo;
 			}
 			
-			if (scanTimer > 220)
+			if (scanTimer > 280)
 			{
 				scan = false;
 				scanTimer = 0;
@@ -215,6 +222,12 @@ bool Player::Update(float dt)
 			}
 		}
 		scanTimer++;
+	}
+
+	if (app->fuel->fuel == 0)
+	{
+		lives--;
+		app->fuel->fuel = 100;
 	}
 
 	if (lives == 0)
@@ -309,7 +322,19 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 	{
 		if (c2->type == CircleCollider::Type::FUEL)
 		{
-			app->fuel->isPicked = true;
+			if (c2->x == 3200 + 52)
+			{
+				app->fuel->isPicked1 = true;
+			}
+			else if (c2->x == 6000 + 52)
+			{
+				app->fuel->isPicked2 = true;
+			}
+			else if (c2->x == 8200 + 52)
+			{
+				app->fuel->isPicked3 = true;
+			}
+
 			c2->pendingToDelete = true;
 			app->fuel->fuel += 20;
 		}
@@ -364,7 +389,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 				app->asteroid->as1Boom = true;
 			}
 
-			if (c2->x == 1800 + 25)
+			if (c2->x == 1800 + 33)
 			{
 				app->asteroid->as2Boom = true;
 			}

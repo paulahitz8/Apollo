@@ -24,7 +24,7 @@ bool Fuel::Awake(pugi::xml_node&)
 	fuelAnim.PushBack({ 168, 66, 101, 96 });
 	fuelAnim.PushBack({ 308, 64, 101, 96 });
 	fuelAnim.PushBack({ 168, 66, 101, 96 });
-	fuelAnim.speed = 4.0f;
+	fuelAnim.speed = 2.0f;
 
 	return true;
 }
@@ -36,9 +36,14 @@ bool Fuel::Start()
 	fuelTexture = app->tex->Load("Assets/Textures/Fuel.png");
 	bottleTexture = app->tex->Load("Assets/Textures/Fuel_Bottle.png");
 
-	currentAnimation = &fuelAnim;
+	currentAnimation1 = &fuelAnim;
+	currentAnimation2 = &fuelAnim;
+	currentAnimation3 = &fuelAnim;
 
-	fuel1Pos = { 700, 500 };
+	fuel1Pos = { 3200, 500 };
+	fuel2Pos = { 6000, 300 };
+	fuel3Pos = { 8200, 300 };
+	
 	bottlePos = { 25, 15 };
 
 	bottle_0 = { 31, 13, 77, 163 };
@@ -48,9 +53,15 @@ bool Fuel::Start()
 	bottle_100 = { 727, 19, 77, 163 };
 
 	fuel = 100;
-	isPicked = false;
 
-	fuel1Collider = app->collisions->AddCollider(fuel1Pos.x, fuel1Pos.y, 26, CircleCollider::Type::FUEL, this);
+	isPicked1 = false;
+	isPicked2 = false;
+	isPicked3 = false;
+	isPicked4 = false;
+
+	fuel1Collider = app->collisions->AddCollider(fuel1Pos.x + 52, fuel1Pos.y + 48, 26, CircleCollider::Type::FUEL, this);
+	fuel2Collider = app->collisions->AddCollider(fuel2Pos.x + 52, fuel2Pos.y + 48, 26, CircleCollider::Type::FUEL, this);
+	fuel3Collider = app->collisions->AddCollider(fuel3Pos.x + 52, fuel3Pos.y + 48, 26, CircleCollider::Type::FUEL, this);
 
 	return true;
 }
@@ -62,22 +73,22 @@ bool Fuel::PreUpdate()
 
 bool Fuel::Update(float dt)
 {
-	if (fuel <= 10)
+	if (fuel <= 5)
 	{
 		app->render->DrawTexture(bottleTexture, bottlePos.x - app->render->camera.x, bottlePos.y, &bottle_0);
 	}
 
-	else if (fuel > 10 && fuel <= 30)
+	else if (fuel > 5 && fuel <= 30)
 	{
 		app->render->DrawTexture(bottleTexture, bottlePos.x - app->render->camera.x, bottlePos.y, &bottle_25);
 	}
 
-	else if (fuel > 30 && fuel <= 60)
+	else if (fuel > 30 && fuel <= 70)
 	{
 		app->render->DrawTexture(bottleTexture, bottlePos.x - app->render->camera.x, bottlePos.y, &bottle_50);
 	}
 
-	else if (fuel > 60 && fuel <= 90)
+	else if (fuel > 70 && fuel <= 90)
 	{
 		app->render->DrawTexture(bottleTexture, bottlePos.x - app->render->camera.x, bottlePos.y, &bottle_75);
 	}
@@ -90,15 +101,27 @@ bool Fuel::Update(float dt)
 	if (fuel > 100) fuel = 100;
 	if (fuel <= 0) fuel = 0;
 
-	currentAnimation->Update(dt);
+	currentAnimation1->Update(dt);
+	currentAnimation2->Update(dt);
+	currentAnimation3->Update(dt);
 
-	fuel1Collider->SetPos(fuel1Pos.x + 52, fuel1Pos.y + 48);
-
-	if (!isPicked)
+	if (!isPicked1)
 	{
 		//Drawing the cubes
-		SDL_Rect rect1 = currentAnimation->GetCurrentFrame();
+		SDL_Rect rect1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(fuelTexture, fuel1Pos.x, fuel1Pos.y, &rect1);
+	}
+	if (!isPicked2)
+	{
+		//Drawing the cubes
+		SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
+		app->render->DrawTexture(fuelTexture, fuel2Pos.x, fuel2Pos.y, &rect2);
+	}
+	if (!isPicked3)
+	{
+		//Drawing the cubes
+		SDL_Rect rect3 = currentAnimation3->GetCurrentFrame();
+		app->render->DrawTexture(fuelTexture, fuel3Pos.x, fuel3Pos.y, &rect3);
 	}
 
 	return true;
