@@ -214,7 +214,7 @@ bool Player::Update(float dt)
 	currentAnimation->Update(dt);
 	
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &rect, 1.0, ovni->rotation);
+	app->render->DrawTexture(playerTexture, ovni->position.x, ovni->position.y, &rect, 1.0f, ovni->rotation);
 
 	playerCollider->SetPos(ovni->position.x + 55, ovni->position.y + 33);
 
@@ -229,7 +229,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	 //Map Limits
+	//Map Limits
 	if (ovni->position.x < 0)
 	{
 		ovni->velocity.x = 0;
@@ -322,6 +322,27 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 			else
 			{
 				ovni->velocity.y = -ovni->velocity.y/2;
+			}
+		}
+
+		else if (c2->type == CircleCollider::Type::ASTEROID)
+		{
+			if (c1->x < c2->x)
+			{
+				ovni->velocity.x = -ovni->velocity.x / 2;
+			}
+			else
+			{
+				ovni->velocity.x = -ovni->velocity.x / 2;
+			}
+
+			if (c1->y < c2->y)
+			{
+				ovni->velocity.y = -ovni->velocity.y / 2;
+			}
+			else
+			{
+				ovni->velocity.y = -ovni->velocity.y / 2;
 			}
 		}
 	}

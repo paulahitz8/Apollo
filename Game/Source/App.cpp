@@ -51,8 +51,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(scene);
-	AddModule(player);
 	AddModule(asteroid);
+	AddModule(player);
 	AddModule(fuel);
 	AddModule(hearts);
 	AddModule(fadeScreen);

@@ -32,6 +32,25 @@ public:
 
 private:
 
+	fPoint asteroid1Pos;
+	fPoint asteroid2Pos;
+	fPoint asteroid3Pos;
+	fPoint asteroid4Pos;
+	CircleCollider* asteroid1Col;
+	CircleCollider* asteroid2Col;
+	CircleCollider* asteroid3Col;
+	CircleCollider* asteroid4Col;
+	SDL_Texture* asteroidTexture;
+	SDL_Rect asteroid1Rect;
+	SDL_Rect asteroid2Rect;
+	SDL_Rect asteroid3Rect;
+	SDL_Rect asteroid4Rect;
+	float asteroidRotation;
+	float asteroidTurnAngle;
+	bool direction1;
+	bool direction2;
+	bool direction3;
+	bool direction4;
 };
 
 #endif // __ASTEROID_H__

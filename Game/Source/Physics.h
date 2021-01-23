@@ -42,7 +42,7 @@ public:
 	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect, fPoint shipPos, fPoint planetPos);
 	void ApplyForce(fPoint force);
 	void Rotate(Spaceship body, float angle);
-	void OnCollision(CircleCollider* c1, CircleCollider* c2);
+	//void OnCollision(CircleCollider* c1, CircleCollider* c2);
 	void SolveCollision();
 	void NewtonLaw(fPoint totalForce, float mass);
 	// void NewtonThirdLaw(); si añadimos otros dynamic bodies
@@ -70,6 +70,19 @@ public:
 	float dragCoefficient;
 
 	float FluidVol(int planetRad, iPoint position, iPoint playerPos);
+};
+
+class Enemies
+{
+public:
+	Enemies(fPoint position, int id, CircleCollider* collider, int fluidRad, int planetRad, int orbitRad, float density, float dragCoefficient);
+	~Enemies();
+
+	fPoint position;
+
+	int id;
+	CircleCollider* collider;
+	SDL_Texture* texture;
 };
 
 class Physics : public Module
