@@ -58,12 +58,11 @@ public:
 	bool isDead = false; 
 	bool scan = false;
 	bool colliding = false;
+    bool isWon;
     int lives;
 	int scanTimer;
 
 	Planet* weAreIn;
-
-private:
 
     Animation* currentAnimation = &idle;
     Animation idle;
@@ -72,6 +71,8 @@ private:
     Animation scanYes;
     Animation impulse;
     Animation getFuel;
+
+private:
 
     CircleCollider* playerCollider = nullptr;
 

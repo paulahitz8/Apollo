@@ -62,8 +62,6 @@ bool Player::Start()
 {
 	LOG("Loading player textures");
 
-	int timer = 0;
-
 	playerTexture = app->tex->Load("Assets/Textures/ApolloPlayer.png");
 
 	lives = 3;
@@ -84,6 +82,15 @@ bool Player::Start()
 	colliding = false;
 	weAreIn = nullptr;
 	scanTimer = 0;
+
+	timer = 0;
+
+	if (isWon)
+	{
+		timer = 500;
+	}
+
+	isWon = false;
 
 	ovni = new Spaceship(playerPos, 5.0f, playerCollider, playerVelocity, playerAcceleration, 2.0f, playerFuel, playerRotation);
 	playerCollider = app->collisions->AddCollider(ovni->position.x + 33, ovni->position.y + 33, 33, CircleCollider::Type::PLAYER, this);
@@ -111,6 +118,13 @@ bool Player::Update(float dt)
 		return true;
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		isWon = true;
+		app->collisions->debug = false;
+		app->fadeScreen->active = true;
+		app->fadeScreen->FadeToBlack(this, (Module*)app->winScreen, 60.0f);
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
 	{
@@ -207,6 +221,7 @@ bool Player::Update(float dt)
 			{
 				app->render->DrawText(font, "SUCCESS: this planet is habitable", 300, 620, 35, 4, { 160, 255, 179, 255 });
 				currentAnimation = &scanYes;
+				isWon = true;
 			}
 			else
 			{
@@ -218,6 +233,12 @@ bool Player::Update(float dt)
 			{
 				scan = false;
 				scanTimer = 0;
+				if (isWon)
+				{
+					app->collisions->debug = false;
+					app->fadeScreen->active = true;
+					app->fadeScreen->FadeToBlack(this, (Module*)app->winScreen, 60.0f);
+				}
 				currentAnimation = &idle;
 			}
 		}

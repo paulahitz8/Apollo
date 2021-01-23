@@ -8,8 +8,6 @@
 #include "LogoScreen.h"
 #include "FadeScreen.h"
 #include "Scene.h"
-#include "Player.h"
-#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,10 +37,10 @@ bool TitleScreen::Start()
 {
 	bool ret = true;
 
+	timer = 0;
 	app->audio->PlayMusic("Assets/Audio/Music/title_music.ogg");
-
 	titleScreen = app->tex->Load("Assets/Textures/title_screen.png");
-	
+
 	return ret;
 }
 

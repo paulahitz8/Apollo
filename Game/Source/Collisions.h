@@ -62,13 +62,14 @@ public:
 
     CircleCollider* collider;
 
+    bool debug = false;
+
 private:
 
     CircleCollider* colliders[MAX_COLLIDERS] = { nullptr };
 
     bool matrix[CircleCollider::Type::MAX][CircleCollider::Type::MAX];
 
-    bool debug = false;
     uint colliderCount = 0;
 };
 

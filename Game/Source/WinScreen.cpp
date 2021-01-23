@@ -42,7 +42,7 @@ bool WinScreen::Start()
 
 	//app->audio->PlayMusic("Assets/Audio/Music/title_music.ogg", 0.0f);
 
-	winScreen = app->tex->Load("Assets/Textures/won_0.png");
+	winScreen = app->tex->Load("Assets/Textures/WinScreen.png");
 
 	return ret;
 }
@@ -61,7 +61,7 @@ bool WinScreen::Update(float dt)
 	{
 		//app->player->timer = 500;
 		app->fadeScreen->active = true;
-		app->fadeScreen->FadeToBlack(this, (Module*)app->titleScreen, 100.0f);
+		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 100.0f);
 	}
 	return true;
 }
