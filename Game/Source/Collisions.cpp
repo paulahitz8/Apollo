@@ -187,6 +187,7 @@ double CircleCollider::DistanceBetweenPoints(int x1, int y1, int x2, int y2)
 {
 	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
+
 bool CircleCollider::Intersects(CircleCollider* A, CircleCollider* B)
 {
 	if (DistanceBetweenPoints(A->x, A->y, B->x, B->y) < (A->radius + B->radius))
