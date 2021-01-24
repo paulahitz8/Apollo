@@ -126,7 +126,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
 
 	//Camera: follow the player
-	if (app->player->ovni->position.x >= 500 && app->player->ovni->position.x < 9320) app->render->camera.x = -(app->player->ovni->position.x - 500);
+	if (app->player->ovni->position.x >= 500 && app->player->ovni->position.x < 9290) app->render->camera.x = -(app->player->ovni->position.x - 500);
 
 	// Draw background
 	app->render->DrawTexture(background, 0, 0);

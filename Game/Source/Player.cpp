@@ -335,7 +335,7 @@ bool Player::PostUpdate()
 		ovni->ApplyForce({ 0, 25000 });
 	}
 
-	if (ovni->position.x > 9870)
+	if (ovni->position.x > 9500)
 	{
 		ovni->velocity.x = 0;
 		ovni->ApplyForce({ -25000, 0 });
