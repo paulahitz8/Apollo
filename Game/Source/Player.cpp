@@ -284,6 +284,7 @@ bool Player::Update(float dt)
 
 	if (lives == 0)
 	{
+		app->audio->PlayFx(gameOverFx);
 		app->collisions->debug = false;
 		app->fadeScreen->active = true;
 		isLose = true;

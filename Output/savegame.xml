@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<save_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<physics />
+	<scene />
+	<asteroid />
+	<fuel />
+	<player>
+		<player x="850" y="420" />
+	</player>
+	<battery />
+	<hearts />
+	<fadeScreen />
+	<collisions />
+	<LogoScreen />
+	<TitleScreen />
+	<DeathScreen />
+	<winscreen />
+	<renderer>
+		<camera x="-350" y="0" />
+	</renderer>
+</save_state>
