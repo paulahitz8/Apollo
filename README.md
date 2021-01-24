@@ -1,5 +1,7 @@
 # SPACE BROS
 
+![A](https://github.com/paulahitz8/Apollo/blob/master/Output/Assets/Textures/title_screen.png)
+
 ## Description
 
 SPACE BROS was created by TNT Cat, a group of developers currently studying in CITM. We are María Calle, Irene Hernández and Paula Hitz. 
