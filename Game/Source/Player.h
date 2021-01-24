@@ -72,6 +72,14 @@ public:
     Animation impulse;
     Animation getFuel;
 
+	// Audio
+	unsigned int scanningFx;
+	unsigned int scanYesFx;
+	unsigned int scanNoFx;
+	unsigned int loseLifeFx;
+	unsigned int fuelFx;
+	unsigned int gameOverFx;
+
 private:
 
     CircleCollider* playerCollider = nullptr;

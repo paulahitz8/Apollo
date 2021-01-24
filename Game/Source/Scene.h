@@ -97,6 +97,8 @@ private:
 	SDL_Rect F100Rect;
 
     bool boolPath = false;
+	bool played;
+	int timer;
 };
 
 #endif // SCENE_H

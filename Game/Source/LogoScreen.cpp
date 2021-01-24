@@ -45,7 +45,9 @@ bool LogoScreen::Start()
 
 	logoScreen = app->tex->Load("Assets/Textures/logo_screen.png");
 
-	app->audio->PlayMusic("Assets/Audio/Music/logo_music.ogg");
+	logoMusicFx = app->audio->LoadFx("Assets/Audio/Fx/logo_music.wav");
+
+	//app->audio->PlayMusic("Assets/Audio/Music/logo_music.ogg");
 	
 	return ret;
 }
@@ -60,6 +62,8 @@ bool LogoScreen::Update(float dt)
 	rect = { 0, 0, 1200, 700 };
 	app->render->DrawTexture(logoScreen, 0 - app->render->camera.x, 0, &rect);
 	timer++;
+	app->audio->PlayFx(logoMusicFx);
+
 
 	return true;
 }

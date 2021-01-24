@@ -55,6 +55,14 @@ bool Player::Awake(pugi::xml_node&)
 	// Animation getFuel;
 	getFuel.PushBack({ 77, 221, 112, 68 });
 
+	//Audios
+	scanningFx = app->audio->LoadFx("Assets/Audio/Fx/Scanning.wav");
+	scanYesFx = app->audio->LoadFx("Assets/Audio/Fx/ScanYes.wav");
+	scanNoFx = app->audio->LoadFx("Assets/Audio/Fx/ScanNo.wav");
+	loseLifeFx = app->audio->LoadFx("Assets/Audio/Fx/LoseLife.wav");
+	fuelFx = app->audio->LoadFx("Assets/Audio/Fx/Fuel.wav");
+	gameOverFx = app->audio->LoadFx("Assets/Audio/Fx/GameOver.wav");
+
 	return true;
 }
 
@@ -131,6 +139,7 @@ bool Player::Update(float dt)
 		scan = true;
 		currentAnimation = &scanPlanet;
 		float dist = 1500000;
+		app->audio->PlayFx(scanningFx);
 
 		for (int i = 0; i < app->scene->planetList.Count(); i++)
 		{
@@ -220,12 +229,14 @@ bool Player::Update(float dt)
 			if (weAreIn->id == 8)
 			{
 				app->render->DrawText(font, "SUCCESS: this planet is habitable", 300, 620, 35, 4, { 160, 255, 179, 255 });
+				app->audio->PlayFx(scanYesFx);
 				currentAnimation = &scanYes;
 				isWon = true;
 			}
 			else
 			{
 				app->render->DrawText(font, "ERROR: this planet is not habitable", 300, 620, 35, 4, { 194, 42, 51, 255 });
+				app->audio->PlayFx(scanNoFx);
 				currentAnimation = &scanNo;
 			}
 			
@@ -247,6 +258,7 @@ bool Player::Update(float dt)
 
 	if (app->fuel->fuel == 0)
 	{
+		app->audio->PlayFx(loseLifeFx);
 		lives--;
 		app->fuel->fuel = 100;
 	}
@@ -343,6 +355,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 	{
 		if (c2->type == CircleCollider::Type::FUEL)
 		{
+			app->audio->PlayFx(fuelFx);
 			if (c2->x == 3200 + 52)
 			{
 				app->fuel->isPicked1 = true;
@@ -385,6 +398,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 
 		else if (c2->type == CircleCollider::Type::ASTEROID)
 		{
+			app->audio->PlayFx(loseLifeFx);
 			if (c1->x < c2->x)
 			{
 				ovni->velocity.x = -ovni->velocity.x / 2;
