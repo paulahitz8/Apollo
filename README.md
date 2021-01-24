@@ -10,15 +10,15 @@ Watch out for your spaceship's battery and fuel: the battery depends on the time
 
 ## Controls
 
- - **SPACE** for thrust
- - **A** rotate counterclockwise
- - **D** rotate clockwise
- - **S** for scanning
- - **F1** draw colliders (looks very cool)
- - **F2** automatic lose
- - **F3** automatic win
- - **F5** save game
- - **F6** load game
+ - **SPACE**: for thrust
+ - **A**: to rotate counterclockwise
+ - **D**: to rotate clockwise
+ - **S**: for scanning
+ - **F1**: to draw colliders (looks very cool)
+ - **F2**: to lose automatically
+ - **F3**: to win automatically
+ - **F5**: to save game
+ - **F6**: to load game
 
 ## Developers
 
@@ -30,4 +30,4 @@ Watch out for your spaceship's battery and fuel: the battery depends on the time
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
-{AdditionalLicenses}
+All of the art was created by María Calle <3
