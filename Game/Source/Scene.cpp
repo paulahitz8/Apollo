@@ -6,6 +6,9 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Player.h"
+#include "Asteroid.h"
+#include "Battery.h"
+#include "Fuel.h"
 #include "Collisions.h"
 #include "Physics.h"
 #include "TitleScreen.h"
@@ -44,6 +47,15 @@ bool Scene::Start()
 	uchar* data = NULL;
 
 	RELEASE_ARRAY(data);
+
+	if (app->player->isWon)
+	{
+		app->battery->Start();
+		app->fuel->Start();
+		app->asteroid->Start();
+		app->player->Start();
+	}
+	
 
 	//Home Planet
 	homePos = { 340.0f, 421.0f };

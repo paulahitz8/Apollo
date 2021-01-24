@@ -84,7 +84,7 @@ bool Battery::Update(float dt)
 	if (battery > 100) battery = 100;
 	if (battery <= 0) battery = 0;
 
-	if (timer > 200)
+	if (timer > 100)
 	{
 		battery -= 1;
 		timer = 0;
