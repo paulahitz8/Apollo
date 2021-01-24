@@ -1,27 +1,30 @@
-# {Project Name}
+# SPACE BROS
 
 ## Description
 
-{project description}
+SPACE BROS was created by TNT Cat, a group of developers currently studying in CITM. We are María Calle, Irene Hernández and Paula Hitz. 
 
-## Key Features
+SPACE BROS is about two aliens that lost their home and need to find a new one. You must help them find it across the universe by scanning each planet and checking if they're habitable!
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
- 
+Watch out for your spaceship's battery and fuel: the battery depends on the time, and the fuel on the movement. Also watch out for asteroids :D
+
 ## Controls
 
- - {ControlsScheme}
+ - **SPACE** for thrust
+ - **A** rotate counterclockwise
+ - **D** rotate clockwise
+ - **S** for scanning
+ - **F1** draw colliders (looks very cool)
+ - **F2** automatic lose
+ - **F3** automatic win
+ - **F5** save game
+ - **F6** load game
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
- - {Dev05} - {Role(s)}
+ - **Paula Hitz**: paulahitz8
+ - **Irene Hernández**: ihedud
+ - **María Calle**: mav006
 
 ## License
 
