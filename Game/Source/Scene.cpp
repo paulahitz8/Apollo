@@ -45,19 +45,6 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	int w, h;
-	uchar* data = NULL;
-
-	RELEASE_ARRAY(data);
-
-	//if (app->player->isWon || app->player->isLose)
-	//{
-	//	app->battery->Start();
-	//	app->fuel->Start();
-	//	app->asteroid->Start();
-	//	app->player->Start();
-	//}
-
 	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
 
 	app->battery->Enable();
@@ -67,7 +54,6 @@ bool Scene::Start()
 	app->physics->Enable();
 	app->hearts->Enable();
 	app->collisions->Enable();
-	
 
 	//Home Planet
 	homePos = { 340.0f, 419.0f };
@@ -122,9 +108,6 @@ bool Scene::Start()
 	gui = app->tex->Load("Assets/Textures/Interface.png");
 
 	guiRect = { 0, 0, 395, 220 };
-	played = false;
-	timer = 0;
-
 	timerText = 0;
 
 	return true;
@@ -139,20 +122,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if (timer > 300)
-	{
-		if (played == false)
-		{
-			app->audio->PlayMusic("Assets/Audio/Music/gameMusic.ogg");
-			
-			played = true;
-		}
-	}
-	if (played == false)
-	{
-		timer++;
-	}
-
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadGameRequest();
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveGameRequest();
 

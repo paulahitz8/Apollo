@@ -19,14 +19,12 @@ Hearts::~Hearts() {}
 
 bool Hearts::Awake(pugi::xml_node&)
 {
-	//animations
-	
-	// Red Heart
+	// Red Heart Anim
 	redHeart.PushBack({6, 8, 50, 37});
 	redHeart.PushBack({6, 49, 50, 37});
 	redHeart.speed = 0.7f;
 
-	// Gray Heart
+	// Gray Heart Anim
 	grayHeart.PushBack({67, 31, 50, 37});
 
 	return true;

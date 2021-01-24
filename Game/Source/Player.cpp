@@ -24,8 +24,6 @@ Player::~Player() {}
 
 bool Player::Awake(pugi::xml_node&)
 {
-	//animations
-
 	// Animation idle;
 	idle.PushBack({ 78, 132, 112, 68 });
 	idle.PushBack({ 231, 131, 112, 68 });
@@ -76,7 +74,7 @@ bool Player::Start()
 
 	currentAnimation = &idle;
 
-	playerPos = { 700.0f, 350.0f };
+	playerPos = { 850.0f, 420.0f };
 	playerAcceleration = { 0.0f, 0.0f };
 	playerVelocity = { 0.0f, 0.0f };
 	playerFuel = 100;
@@ -228,7 +226,7 @@ bool Player::Update(float dt)
 			}
 
 			// fourth quadrant
-			if (rads > 270 && rads <= 360)
+			if (rads > 270 && rads < 360)
 			{
 				direction.x = ovni->position.x * cos(rads) * propForce;
 				direction.y = ovni->position.y * -sin(rads) * propForce;
@@ -305,9 +303,9 @@ bool Player::Update(float dt)
 
 	playerCollider->SetPos(ovni->position.x + 55, ovni->position.y + 33);
 
-	if (ovni->velocity.x > 500) ovni->velocity.x = 500;
+	if (ovni->velocity.x >= 500) ovni->velocity.x = 500;
 	if (ovni->velocity.x < -500) ovni->velocity.x = -500;
-	if (ovni->velocity.y > 500) ovni->velocity.y = 500;
+	if (ovni->velocity.y >= 500) ovni->velocity.y = 500;
 	if (ovni->velocity.y < -500) ovni->velocity.y = -500;
 	
 	if (spaceTimer == 20)
@@ -335,6 +333,7 @@ bool Player::PostUpdate()
 		ovni->velocity.y = 0;
 		ovni->ApplyForce({ 0, 25000 });
 	}
+
 	if (ovni->position.x > 9870)
 	{
 		ovni->velocity.x = 0;
@@ -347,22 +346,21 @@ bool Player::PostUpdate()
 		ovni->ApplyForce({ 0, -25000 });
 	}
 
-
-
-	//if ((playerPos.x + playerRect.x) > (app->map->data.width * app->map->data.tileWidth)) --playerPos.x;
-
-	//In case of godmode on
-	//if (playerPos.y <= 0) playerPos.y = 0;
-
-	//if ((playerPos.y + playerRect.y) > (app->map->data.height * app->map->data.tileHeight)) --playerPos.y;
-
 	return true;
 }
 
 bool Player::CleanUp()
 {
-	//Unload the audios
+	//Unload texture
 	app->tex->UnLoad(playerTexture);
+
+	//Unload the audios
+	app->audio->UnloadFx(scanningFx);
+	app->audio->UnloadFx(scanYesFx);
+	app->audio->UnloadFx(scanNoFx);
+	app->audio->UnloadFx(loseLifeFx);
+	app->audio->UnloadFx(fuelFx);
+	app->audio->UnloadFx(gameOverFx);
 
 	return true;
 }

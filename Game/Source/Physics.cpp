@@ -20,7 +20,6 @@ Physics::~Physics() {}
 
 bool Physics::Awake(pugi::xml_node&)
 {
-	gravityy = { 0.0f, 0.0f };
 	return true;
 }
 
@@ -46,8 +45,6 @@ bool Physics::Update(float dt)
 	}
 
 	Step(dt);
-
-	//draw
 
 	return true;
 }
@@ -77,7 +74,7 @@ void Physics::Step(float dt)
 		{
 			if (app->scene->planetList[i]->id == 6)
 			{
-				//app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
+				app->player->ovni->forces.Add(app->player->ovni->ForceHydroDrag(app->player->ovni->velocity));
 				app->player->ovni->forces.Add(app->player->ovni->ForceHydroBuoy(app->scene->planetList[i]->density, app->scene->planetList[i]->gravity, app->player->playerRect, app->player->ovni->position, app->scene->planetList[i]->position));
 			}
 			else
@@ -100,7 +97,6 @@ void Physics::Step(float dt)
 	app->player->ovni->NewtonLaw(app->player->ovni->totalForce, app->player->ovni->mass);
 
 	Integrate(dt);
-
 }
 
 void Physics::Integrate(float dt)
@@ -168,8 +164,23 @@ fPoint Spaceship::ForceHydroDrag(fPoint shipVel)
 	hydroDragForce.x = shipVel.x * b;
 	hydroDragForce.y = shipVel.y * b;
 
-	hydroDragForce.x = -vel.x * hydroDragForce.x;
-	hydroDragForce.y = -vel.y * hydroDragForce.y;
+	if (shipVel.x >= 0)
+	{
+		hydroDragForce.x = -vel.x * hydroDragForce.x;
+	}
+	else
+	{
+		hydroDragForce.x = vel.x * hydroDragForce.x;
+	}
+	if (shipVel.y >= 0)
+	{
+		hydroDragForce.y = -vel.y * hydroDragForce.y;
+	}
+	else
+	{
+		hydroDragForce.y = vel.y * hydroDragForce.y;
+	}
+
 
 	return hydroDragForce;
 }

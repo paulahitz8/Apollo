@@ -31,9 +31,9 @@ private:
 
 	SDL_Texture* logoScreen;
 	SDL_Rect rect;
-	int timer = 0;
+
+	int timerLogo;
 	unsigned int logoMusicFx;
-	bool played;
 };
 
 #endif // __LOGO_SCREEN_H__

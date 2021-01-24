@@ -36,10 +36,11 @@ bool TitleScreen::Awake()
 bool TitleScreen::Start()
 {
 	bool ret = true;
+	
+	app->audio->PlayMusic("Assets/Audio/Music/gameMusic.ogg");
+	titleScreen = app->tex->Load("Assets/Textures/title_screen.png");
 
 	timer = 0;
-	//app->audio->PlayMusic("Assets/Audio/Music/IntroScreen.ogg");
-	titleScreen = app->tex->Load("Assets/Textures/title_screen.png");
 
 	return ret;
 }

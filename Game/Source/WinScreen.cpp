@@ -40,10 +40,8 @@ bool WinScreen::Start()
 	bool ret = true;
 	app->scene->active = false;
 	app->render->camera.x = 0;
+
 	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
-
-	//app->audio->PlayMusic("Assets/Audio/Music/title_music.ogg", 0.0f);
-
 	winScreen = app->tex->Load("Assets/Textures/WinScreen.png");
 
 	return ret;
@@ -61,7 +59,6 @@ bool WinScreen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		//app->player->timer = 500;
 		app->fadeScreen->active = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 100.0f);
 	}

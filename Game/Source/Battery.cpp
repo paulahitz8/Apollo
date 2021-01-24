@@ -22,8 +22,6 @@ Battery::~Battery() {}
 
 bool Battery::Awake(pugi::xml_node&)
 {
-	//animations
-
 	return true;
 }
 

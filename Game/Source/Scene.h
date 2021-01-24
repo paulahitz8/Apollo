@@ -80,7 +80,6 @@ public:
     fPoint newHomePos;
     CircleCollider* newHomeCol;
 
-
 private:
 
     SDL_Texture* background;
@@ -100,10 +99,6 @@ private:
 	Font* font;
 
 	int timerText;
-
-    bool boolPath = false;
-	bool played;
-	int timer;
 };
 
 #endif // SCENE_H

@@ -42,8 +42,6 @@ bool DeathScreen::Start()
 	deathScreen = app->tex->Load("Assets/Textures/LoseScreen.png");
 	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
 
-	//app->audio->PlayMusic("Assets/Audio/Music/death_music.ogg", 0.0f);
-
 	return ret;
 }
 
@@ -59,7 +57,6 @@ bool DeathScreen::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		//app->player->timer = 500;
 		app->fadeScreen->active = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 100.0f);
 	}
@@ -91,4 +88,3 @@ bool DeathScreen::CleanUp()
 
 	return true;
 }
-

@@ -30,7 +30,7 @@ private:
 
 	SDL_Texture* titleScreen;
 	SDL_Rect rect;
-	int timer = 0;
+	int timer;
 };
 
 #endif // __TITLE_SCREEN_H__

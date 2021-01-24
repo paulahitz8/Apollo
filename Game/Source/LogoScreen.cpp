@@ -9,7 +9,6 @@
 #include "TitleScreen.h"
 #include "DeathScreen.h"
 #include "WinScreen.h"
-#include "Player.h"
 #include "Scene.h"
 
 #include "Defs.h"
@@ -46,9 +45,10 @@ bool LogoScreen::Start()
 	logoScreen = app->tex->Load("Assets/Textures/logo_screen.png");
 
 	logoMusicFx = app->audio->LoadFx("Assets/Audio/Fx/logo_music.wav");
-
-	played = false;
+	app->audio->PlayFx(logoMusicFx);
 	
+	timerLogo = 0;
+
 	return ret;
 }
 
@@ -61,13 +61,8 @@ bool LogoScreen::Update(float dt)
 {
 	rect = { 0, 0, 1200, 700 };
 	app->render->DrawTexture(logoScreen, 0 - app->render->camera.x, 0, &rect);
-	timer++;
-	if (played == false)
-	{
-		app->audio->PlayFx(logoMusicFx);
-		played = true;
-	}
 
+	timerLogo++;
 
 	return true;
 }
@@ -76,17 +71,17 @@ bool LogoScreen::PostUpdate()
 {
 	bool ret = true;
 
-
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		ret = false;
 	}
 
-	if (timer == 160) 
+	if (timerLogo == 160) 
 	{
 		app->fadeScreen->active = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->titleScreen, 60.0f);
 	}
+
 	return ret;
 }
 

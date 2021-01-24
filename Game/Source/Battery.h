@@ -43,14 +43,12 @@ public:
 	SDL_Rect battery_0;
 
 	int battery;
-
 	iPoint batteryPos;
 
 private:
 
 	int timer;
 	Font* font;
-
 };
 
 #endif // __BATTERY_H__

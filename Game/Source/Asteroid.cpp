@@ -20,9 +20,6 @@ Asteroid::~Asteroid() {}
 
 bool Asteroid::Awake(pugi::xml_node&)
 {
-	//animations
-
-
 	return true;
 }
 
@@ -81,6 +78,7 @@ bool Asteroid::PreUpdate()
 bool Asteroid::Update(float dt)
 {
 	asteroidRotation += asteroidTurnAngle;
+
 	if (asteroidRotation > 360)
 	{
 		asteroidRotation = asteroidRotation / 360;

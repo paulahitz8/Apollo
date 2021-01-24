@@ -19,7 +19,6 @@ public:
 	float rotation;
 
 	SString name;
-	//BodyType bodyType;
 	CircleCollider* collider;
 
 	fPoint velocity, acceleration;
@@ -33,19 +32,15 @@ public:
 public:
 
 	Spaceship(fPoint position, float mass, CircleCollider* collider, fPoint velocity, fPoint acceleration, float frontalArea, int fuel, float rotation);
-	//~Spaceship();
 
-	//void Shoot();
 	fPoint ForceGravity(float shipMass, float planetMass, fPoint shipPos, fPoint planetPos);
 	fPoint ForceAeroDrag(float density, fPoint shipVel, float frontalArea, float dragCoefficient);
 	fPoint ForceHydroDrag(fPoint shipVel);
 	fPoint ForceHydroBuoy(float density, fPoint gravity, SDL_Rect playerRect, fPoint shipPos, fPoint planetPos);
 	void ApplyForce(fPoint force);
 	void Rotate(Spaceship body, float angle);
-	//void OnCollision(CircleCollider* c1, CircleCollider* c2);
 	void SolveCollision();
 	void NewtonLaw(fPoint totalForce, float mass);
-	// void NewtonThirdLaw(); si añadimos otros dynamic bodies
 };
 
 class Planet
@@ -58,7 +53,6 @@ public:
 	float mass;
 
 	int id;
-	//BodyType bodyType;
 	CircleCollider* collider;
 	SDL_Texture* texture;
 
@@ -68,21 +62,6 @@ public:
 	int planetRad;
 	float density;
 	float dragCoefficient;
-
-	float FluidVol(int planetRad, iPoint position, iPoint playerPos);
-};
-
-class Enemies
-{
-public:
-	Enemies(fPoint position, int id, CircleCollider* collider, int fluidRad, int planetRad, int orbitRad, float density, float dragCoefficient);
-	~Enemies();
-
-	fPoint position;
-
-	int id;
-	CircleCollider* collider;
-	SDL_Texture* texture;
 };
 
 class Physics : public Module
@@ -105,7 +84,6 @@ public:
 	void Step(float dt);
 	void Integrate(float dt);
 
-	fPoint gravityy;
 	int timer = 0;
 
 };

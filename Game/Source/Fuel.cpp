@@ -107,19 +107,16 @@ bool Fuel::Update(float dt)
 
 	if (!isPicked1)
 	{
-		//Drawing the cubes
 		SDL_Rect rect1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(fuelTexture, fuel1Pos.x, fuel1Pos.y, &rect1);
 	}
 	if (!isPicked2)
 	{
-		//Drawing the cubes
 		SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 		app->render->DrawTexture(fuelTexture, fuel2Pos.x, fuel2Pos.y, &rect2);
 	}
 	if (!isPicked3)
 	{
-		//Drawing the cubes
 		SDL_Rect rect3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(fuelTexture, fuel3Pos.x, fuel3Pos.y, &rect3);
 	}
@@ -135,7 +132,6 @@ bool Fuel::PostUpdate()
 bool Fuel::CleanUp()
 {
 	//Unload the textures
-
 	app->tex->UnLoad(fuelTexture);
 	app->tex->UnLoad(bottleTexture);
 

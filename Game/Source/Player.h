@@ -42,7 +42,6 @@ public:
 
 	Spaceship* ovni;
     int timer = 0;
-    //SDL_Rect player;
     SDL_Texture* playerTexture;
     SDL_Rect playerRect;
 
@@ -89,7 +88,6 @@ private:
     void OnCollision(CircleCollider* c1, CircleCollider* c2);
 
     Font* font;
-
 };
 
 #endif // PLAYER_H
