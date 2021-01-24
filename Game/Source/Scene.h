@@ -102,6 +102,8 @@ private:
 	int timerText;
 
     bool boolPath = false;
+	bool played;
+	int timer;
 };
 
 #endif // SCENE_H
