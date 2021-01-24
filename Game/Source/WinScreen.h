@@ -5,6 +5,7 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
+class Font;
 
 class WinScreen : public Module
 {
@@ -31,6 +32,8 @@ private:
 
 	SDL_Texture* winScreen;
 	SDL_Rect rect;
+
+	Font* font;
 };
 
 #endif // __WIN_SCREEN_H__

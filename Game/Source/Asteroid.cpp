@@ -58,6 +58,18 @@ bool Asteroid::Start()
 	direction4 = false;
 	as4Boom = false;
 
+	asteroid5Pos = { 1600.0f, 30.0f };
+	asteroid5Col = app->collisions->AddCollider(asteroid5Pos.x + 33, asteroid5Pos.y + 33, 33, CircleCollider::Type::ASTEROID, this);
+	asteroid5Rect = { 355, 33, 78, 69 };
+	direction5 = true;
+	as5Boom = false;
+
+	asteroid6Pos = { 6200.0f, 50.0f };
+	asteroid6Col = app->collisions->AddCollider(asteroid6Pos.x + 25, asteroid6Pos.y + 25, 25, CircleCollider::Type::ASTEROID, this);
+	asteroid6Rect = { 473, 149, 45, 38 };
+	direction6 = false;
+	as6Boom = false;
+
 	return true;
 }
 
@@ -110,6 +122,24 @@ bool Asteroid::Update(float dt)
 		direction4 = true;
 	}
 
+	if (asteroid5Pos.y > 630)
+	{
+		direction5 = false;
+	}
+	else if (asteroid5Pos.y < 10)
+	{
+		direction5 = true;
+	}
+
+	if (asteroid6Pos.y > 630)
+	{
+		direction6 = false;
+	}
+	else if (asteroid6Pos.y < 10)
+	{
+		direction6 = true;
+	}
+
 	if (direction1)
 	{
 		asteroid1Pos.y++;
@@ -146,10 +176,30 @@ bool Asteroid::Update(float dt)
 		asteroid4Pos.y--;
 	}
 
+	if (direction5)
+	{
+		asteroid5Pos.y++;
+	}
+	else
+	{
+		asteroid5Pos.y--;
+	}
+
+	if (direction6)
+	{
+		asteroid6Pos.y++;
+	}
+	else
+	{
+		asteroid6Pos.y--;
+	}
+
 	asteroid1Col->SetPos(asteroid1Pos.x + 33, asteroid1Pos.y + 33);
 	asteroid2Col->SetPos(asteroid2Pos.x + 25, asteroid2Pos.y + 25);
 	asteroid3Col->SetPos(asteroid3Pos.x + 33, asteroid3Pos.y + 33);
 	asteroid4Col->SetPos(asteroid4Pos.x + 33, asteroid4Pos.y + 33);
+	asteroid5Col->SetPos(asteroid5Pos.x + 33, asteroid5Pos.y + 33);
+	asteroid6Col->SetPos(asteroid6Pos.x + 25, asteroid6Pos.y + 25);
 
 	if (!as1Boom)
 	{
@@ -169,6 +219,16 @@ bool Asteroid::Update(float dt)
 	if (!as4Boom)
 	{
 		app->render->DrawTexture(asteroidTexture, asteroid4Pos.x, asteroid4Pos.y, &asteroid4Rect, 1.0f, asteroidRotation);
+	}
+
+	if (!as5Boom)
+	{
+		app->render->DrawTexture(asteroidTexture, asteroid5Pos.x, asteroid5Pos.y, &asteroid5Rect, 1.0f, asteroidRotation);
+	}
+
+	if (!as6Boom)
+	{
+		app->render->DrawTexture(asteroidTexture, asteroid6Pos.x, asteroid6Pos.y, &asteroid6Rect, 1.0f, asteroidRotation);
 	}
 
 	return true;

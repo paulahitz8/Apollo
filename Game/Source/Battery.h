@@ -30,7 +30,11 @@ public:
 
 	bool CleanUp();
 
-	SDL_Texture* batteryTexture;
+	SDL_Texture* batteryTexture0;
+	SDL_Texture* batteryTexture25;
+	SDL_Texture* batteryTexture50;
+	SDL_Texture* batteryTexture75;
+	SDL_Texture* batteryTexture100;
 
 	SDL_Rect battery_100;
 	SDL_Rect battery_75;

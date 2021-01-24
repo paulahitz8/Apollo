@@ -12,6 +12,8 @@
 #include "Fuel.h"
 #include "Asteroid.h"
 #include "Font.h"
+#include "Battery.h"
+#include "Hearts.h"
 
 Player::Player()
 {
@@ -49,8 +51,6 @@ bool Player::Awake(pugi::xml_node&)
 
 	// Animation impulse;
 	impulse.PushBack({ 77, 47, 112, 68 });
-	impulse.PushBack({ 221, 46, 112, 68 });
-	impulse.speed = 10.0f;
 
 	// Animation getFuel;
 	getFuel.PushBack({ 77, 221, 112, 68 });
@@ -84,13 +84,15 @@ bool Player::Start()
 	scanTimer = 0;
 
 	timer = 0;
+	spaceTimer = 0;
 
-	if (isWon)
+	if (isWon || isLose)
 	{
 		timer = 500;
 	}
 
 	isWon = false;
+	isLose = false;
 
 	ovni = new Spaceship(playerPos, 5.0f, playerCollider, playerVelocity, playerAcceleration, 2.0f, playerFuel, playerRotation);
 	playerCollider = app->collisions->AddCollider(ovni->position.x + 33, ovni->position.y + 33, 33, CircleCollider::Type::PLAYER, this);
@@ -118,12 +120,23 @@ bool Player::Update(float dt)
 		return true;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		isWon = true;
 		app->collisions->debug = false;
 		app->fadeScreen->active = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->winScreen, 60.0f);
+		lives = 3;
+		app->battery->Disable();
+		app->fuel->Disable();
+		app->asteroid->Disable();
+		app->hearts->Disable();
+		app->collisions->Disable();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		lives = 0;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && colliding == true)
@@ -176,6 +189,8 @@ bool Player::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
+			spaceTimer = 0;
+			currentAnimation = &impulse;
 			app->fuel->fuel -= 1;
 
 			fPoint direction = { 0.0f, 0.0f };
@@ -238,6 +253,12 @@ bool Player::Update(float dt)
 					app->collisions->debug = false;
 					app->fadeScreen->active = true;
 					app->fadeScreen->FadeToBlack(this, (Module*)app->winScreen, 60.0f);
+					lives = 3;
+					app->battery->Disable();
+					app->fuel->Disable();
+					app->asteroid->Disable();
+					app->hearts->Disable();
+					app->collisions->Disable();
 				}
 				currentAnimation = &idle;
 			}
@@ -253,8 +274,16 @@ bool Player::Update(float dt)
 
 	if (lives == 0)
 	{
+		app->collisions->debug = false;
 		app->fadeScreen->active = true;
+		isLose = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->deathScreen, 60.0f);
+		lives = 3;
+		app->battery->Disable();
+		app->fuel->Disable();
+		app->asteroid->Disable();
+		app->hearts->Disable();
+		app->collisions->Disable();
 	}
 
 	currentAnimation->Update(dt);
@@ -268,6 +297,13 @@ bool Player::Update(float dt)
 	if (ovni->velocity.x < -500) ovni->velocity.x = -500;
 	if (ovni->velocity.y > 500) ovni->velocity.y = 500;
 	if (ovni->velocity.y < -500) ovni->velocity.y = -500;
+	
+	if (spaceTimer == 20)
+	{
+		currentAnimation = &idle;
+	}
+
+	spaceTimer++;
 
 	return true;
 }
@@ -410,7 +446,7 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 				app->asteroid->as1Boom = true;
 			}
 
-			if (c2->x == 1800 + 33)
+			if (c2->x == 1800 + 25)
 			{
 				app->asteroid->as2Boom = true;
 			}
@@ -423,6 +459,16 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 			if (c2->x == 6400 + 33)
 			{
 				app->asteroid->as4Boom = true;
+			}
+
+			if (c2->x == 1600 + 33)
+			{
+				app->asteroid->as5Boom = true;
+			}
+
+			if (c2->x == 6200 + 25)
+			{
+				app->asteroid->as6Boom = true;
 			}
 		}
 	}

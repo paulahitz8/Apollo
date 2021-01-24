@@ -4,6 +4,7 @@
 #include "Module.h"
 
 struct SDL_Texture;
+class Font;
 
 class DeathScreen : public Module
 {
@@ -30,6 +31,7 @@ private:
 
 	SDL_Texture* deathScreen;
 	SDL_Rect rect;
+	Font* font;
 };
 
 #endif // __DEATH_SCREEN_H__

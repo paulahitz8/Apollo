@@ -7,6 +7,7 @@ struct SDL_Texture;
 
 class Planet;
 class CircleCollider;
+class Font;
 
 class Scene : public Module
 {
@@ -95,6 +96,10 @@ private:
 	SDL_Rect F75Rect;
     SDL_Texture* F100;
 	SDL_Rect F100Rect;
+
+	Font* font;
+
+	int timerText;
 
     bool boolPath = false;
 };

@@ -9,6 +9,7 @@
 #include "TitleScreen.h"
 #include "Scene.h"
 #include "Player.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,6 +40,7 @@ bool WinScreen::Start()
 	bool ret = true;
 	app->scene->active = false;
 	app->render->camera.x = 0;
+	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
 
 	//app->audio->PlayMusic("Assets/Audio/Music/title_music.ogg", 0.0f);
 
@@ -63,6 +65,10 @@ bool WinScreen::Update(float dt)
 		app->fadeScreen->active = true;
 		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 100.0f);
 	}
+
+	app->render->DrawText(font, "YOU WON!", 400, 80, 100, 4, { 255, 255, 255, 255 });
+	app->render->DrawText(font, "PRESS SPACE TO PLAY AGAIN", 320, 200, 40, 4, { 255, 255, 255, 255 });
+
 	return true;
 }
 

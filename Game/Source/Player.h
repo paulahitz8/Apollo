@@ -59,8 +59,10 @@ public:
 	bool scan = false;
 	bool colliding = false;
     bool isWon;
+    bool isLose;
     int lives;
 	int scanTimer;
+	int spaceTimer;
 
 	Planet* weAreIn;
 

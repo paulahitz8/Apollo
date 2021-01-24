@@ -119,7 +119,7 @@ void Collisions::DrawCollider()
 		case CircleCollider::Type::PLANET: // Yellow
 			app->render->DrawCircle(colliders[i]->x, colliders[i]->y, colliders[i]->radius, 255, 255, 0, alpha);
 			break;
-		case CircleCollider::Type::ASTEROID: // Yellow
+		case CircleCollider::Type::ASTEROID:
 			app->render->DrawCircle(colliders[i]->x, colliders[i]->y, colliders[i]->radius, 255, 255, 255, alpha);
 			break;
 		case CircleCollider::Type::FUEL: // White

@@ -9,6 +9,7 @@
 #include "DeathScreen.h"
 #include "TitleScreen.h"
 #include "Player.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,7 +39,8 @@ bool DeathScreen::Start()
 	bool ret = true;
 	app->scene->active = false;
 	app->render->camera.x = 0;
-	deathScreen = app->tex->Load("Assets/Textures/death_screen.png");
+	deathScreen = app->tex->Load("Assets/Textures/LoseScreen.png");
+	font = new Font("Assets/Fonts/pixel_digivolve.xml", app->tex);
 
 	//app->audio->PlayMusic("Assets/Audio/Music/death_music.ogg", 0.0f);
 
@@ -59,8 +61,11 @@ bool DeathScreen::Update(float dt)
 	{
 		//app->player->timer = 500;
 		app->fadeScreen->active = true;
-		app->fadeScreen->FadeToBlack(this, (Module*)app->titleScreen, 100.0f);
+		app->fadeScreen->FadeToBlack(this, (Module*)app->scene, 100.0f);
 	}
+
+	app->render->DrawText(font, "YOU LOST", 395, 80, 100, 4, { 255, 255, 255, 255 });
+	app->render->DrawText(font, "PRESS SPACE TO PLAY AGAIN", 320, 200, 40, 4, { 255, 255, 255, 255 });
 
 	return true;
 }
