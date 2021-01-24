@@ -78,7 +78,7 @@ bool Battery::Update(float dt)
 	{
 		app->render->DrawTexture(batteryTexture50, batteryPos.x - app->render->camera.x, batteryPos.y, &battery_50);
 	}
-	else if (battery > 60 && battery <= 90)
+	else if (battery >= 60 && battery <= 90)
 	{
 		app->render->DrawTexture(batteryTexture75, batteryPos.x - app->render->camera.x, batteryPos.y, &battery_75);
 	}
