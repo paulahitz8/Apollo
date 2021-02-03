@@ -412,13 +412,36 @@ void Player::OnCollision(CircleCollider* c1, CircleCollider* c2)
 		{
 			colliding = true;
 
+			if (sqrt(pow(c2->x - c1->x, 2) + pow(c2->y - c1->y, 2)) < (c1->radius + c2->radius - 1))
+			{
+				if (c1->x < c2->x)
+				{
+					ovni->position.x--;
+				}
+				else
+				{
+					ovni->position.x++;
+				}
+
+				if (c1->y < c2->y)
+				{
+					ovni->position.y--;
+				}
+				else
+				{
+					ovni->position.y++;
+				}
+			}
+
 			if (c1->x < c2->x)
 			{
 				ovni->velocity.x = -ovni->velocity.x/2;
+
 			}
 			else
 			{
 				ovni->velocity.x = -ovni->velocity.x/2;
+
 			}
 
 			if (c1->y < c2->y)
